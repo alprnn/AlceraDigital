@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alcera Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #03080f;
+    --deep: #050d18;
+    --teal: #00c9b1;
+    --gold: #c9a84c;
+    --mist: #a8d8e8;
+    --text: #e8f4f8;
+    --dim: #5a8a9f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Raleway', sans-serif;
+    overflow-x: hidden;
+  }
+
+  #bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; right: 0;
+    z-index: 100;
+    padding: 28px 48px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  nav a {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--teal);
+    transition: width 0.35s ease;
+  }
+
+  nav a:hover { color: var(--teal); }
+  nav a:hover::after { width: 100%; }
+
+  section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #hero { overflow: hidden; }
+
+  #hero-text {
+    position: relative;
+    text-align: center;
+    user-select: none;
+  }
+
+  #hero-text h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(3.5rem, 9vw, 9rem);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #e8f4f8 0%, #a8d8e8 40%, #00c9b1 70%, #c9a84c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(0,201,177,0.2));
+  }
+
+  #hero-text p {
+    margin-top: 18px;
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  #dragonfly-canvas {
+    position: absolute;
+    inset: -120px;
+    pointer-events: none;
+  }
+
+  .section-inner {
+    max-width: 860px;
+    width: 90%;
+    padding: 80px 0;
+  }
+
+  .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 40px;
+    line-height: 1.2;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    margin-bottom: 40px;
+  }
+
+  #services { background: linear-gradient(180deg, var(--bg) 0%, var(--deep) 100%); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2px;
+  }
+
+  .service-card {
+    background: rgba(0,201,177,0.03);
+    border: 1px solid rgba(0,201,177,0.1);
+    padding: 36px 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--teal);
+    transition: height 0.4s ease;
+  }
+
+  .service-card:hover { background: rgba(0,201,177,0.07); transform: translateY(-4px); }
+  .service-card:hover::before { height: 100%; }
+
+  .service-icon { font-size: 1.8rem; margin-bottom: 18px; display: block; }
+
+  .service-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--mist);
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: var(--dim);
+    font-weight: 300;
+  }
+
+  #communication { background: var(--deep); }
+
+  .comm-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .comm-visual {
+    position: relative;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comm-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0,201,177,0.15);
+    animation: pulse-ring 4s ease-in-out infinite;
+  }
+
+  .comm-ring:nth-child(1) { width: 80px; height: 80px; animation-delay: 0s; }
+  .comm-ring:nth-child(2) { width: 160px; height: 160px; animation-delay: 0.6s; }
+  .comm-ring:nth-child(3) { width: 240px; height: 240px; animation-delay: 1.2s; }
+  .comm-ring:nth-child(4) { width: 320px; height: 320px; animation-delay: 1.8s; }
+
+  .comm-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 20px var(--teal), 0 0 40px rgba(0,201,177,0.4);
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0.15; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.03); }
+  }
+
+  .comm-text p {
+    font-size: 0.88rem;
+    line-height: 2;
+    color: var(--dim);
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .comm-text p strong { color: var(--mist); font-weight: 400; }
+
+  #customer-satisfaction { background: var(--bg); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 60px;
+  }
+
+  .stat-box {
+    padding: 40px 30px;
+    border: 1px solid rgba(201,168,76,0.12);
+    background: rgba(201,168,76,0.03);
+    text-align: center;
+    transition: background 0.3s;
+  }
+
+  .stat-box:hover { background: rgba(201,168,76,0.07); }
+
+  .stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .testimonial {
+    padding: 30px;
+    border-left: 2px solid rgba(201,168,76,0.3);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .testimonial p {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--dim);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .testimonial cite {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--dim);
+  }
+
+  @media (max-width: 700px) {
+    nav { gap: 20px; padding: 20px 24px; }
+    .comm-layout { grid-template-columns: 1fr; gap: 40px; }
+    .stats-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <a href="#services">Services</a>
+  <a href="#communication">Communication</a>
+  <a href="#customer-satisfaction">Customer Satisfaction</a>
+</nav>
+
+<section id="hero">
+  <div id="hero-text">
+    <canvas id="dragonfly-canvas"></canvas>
+    <h1>Alcera Digital</h1>
+    <p>Transforming visions into digital reality</p>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <p class="section-tag">What we offer</p>
+    <h2 class="section-title">Our Services</h2>
+    <div class="divider"></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">⬡</span>
+        <h3>Strategy &amp; Consulting</h3>
+        <p>We architect digital roadmaps that align your business goals with technology, ensuring every decision is purposeful and measurable.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">◈</span>
+        <h3>Web Development</h3>
+        <p>From pixel-perfect interfaces to scalable backend systems, we build digital products that perform under pressure and delight at first glance.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">⬡</span>
+        <h3>Brand Identity</h3>
+        <p>We create visual identities that breathe, evolve, and leave lasting impressions across every touchpoint of your brand's universe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="communication">
+  <div class="section-inner">
+    <p class="section-tag">Nasıl bağlanırız</p>
+    <h2 class="section-title">İletişim</h2>
+    <div class="divider"></div>
+    <div class="comm-layout">
+      <div class="comm-visual">
+        <div class="comm-ring"></div>
+        <div class="comm-ring"></div>
+        <div class="comm-ring"></div>
+        <div class="comm-ring"></div>
+        <div class="comm-dot"></div>
+      </div>
+      <div class="comm-text">
+        <p>Alcera Digital'da iletişim bir departman değil — bir <strong>felsefe</strong>. Netliğin en yüksek zeka biçimi olduğuna inanıyoruz.</p>
+        <p>Her proje derin bir dinlemeyle başlar. Vizyonunuzu, kısıtlarınızı, hedeflerinizi haritalandırır — ve size tam olarak yansıtırız.</p>
+        <p>Her süreçte hem sizin dilinizi hem de bizimkini konuşan <strong>özel bir iletişim noktanız</strong> olur. Jargon yok. Silolaşma yok. Sürpriz yok.</p>
+        <p>Haftalık brifinglerden anlık panolara kadar hiçbir zaman merak içinde kalmazsınız. <strong>Şeffaflık varsayılanımızdır</strong>, bir seçenek değil.</p>
+        <a href="mailto:alceradigital.contact@gmail.com"
+           style="margin-top:32px; padding:20px 24px; border:1px solid rgba(0,201,177,0.2); background:rgba(0,201,177,0.04); display:inline-flex; align-items:center; gap:14px; text-decoration:none; transition:background 0.3s, border-color 0.3s;"
+           onmouseover="this.style.background='rgba(0,201,177,0.1)';this.style.borderColor='rgba(0,201,177,0.45)'"
+           onmouseout="this.style.background='rgba(0,201,177,0.04)';this.style.borderColor='rgba(0,201,177,0.2)'">
+          <span style="font-size:1.2rem; color:var(--teal);">✉</span>
+          <div>
+            <div style="font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--dim); margin-bottom:6px;">Bize mail gönderin</div>
+            <span style="font-family:'Cinzel',serif; font-size:0.9rem; color:var(--teal); letter-spacing:0.03em;">alceradigital.contact@gmail.com</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="customer-satisfaction">
+  <div class="section-inner">
+    <p class="section-tag">Taahhüdümüz</p>
+    <h2 class="section-title">Müşteri Memnuniyeti</h2>
+    <div class="divider"></div>
+    <div class="stats-row">
+      <div class="stat-box">
+        <span class="stat-num">98%</span>
+        <span class="stat-label">Müşteri Memnuniyet Oranı</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">340+</span>
+        <span class="stat-label">Tamamlanan Proje</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">4.9★</span>
+        <span class="stat-label">Ortalama Puan</span>
+      </div>
+    </div>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>"Alcera Digital, hayal ettiğimizin ötesine geçti. Her şey zamanında, bütçe dahilinde ve tam istediğimiz vizyonla teslim edildi."</p>
+        <cite>— Ayşe K., Kurucu, Işık Danışmanlık</cite>
+      </div>
+      <div class="testimonial">
+        <p>"Alcera ile çalışmak, şirketinizin içinde seçkin bir ekibe sahip olmak gibi. Başarımıza gösterdikleri özen gerçekten nadir rastlanan bir şey."</p>
+        <cite>— Emre Y., CTO, KuzeyKenar Teknoloji</cite>
+      </div>
+      <div class="testimonial">
+        <p>"Pek çok ajansla çalıştım. Alcera'nın sunduğu düşünce kalitesi ve uygulama mükemmeliyetiyle hiçbiri boy ölçüşemedi."</p>
+        <cite>— Zeynep A., Direktör, Auros Grup</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Alcera Digital — Crafted with intention
+</footer>
+
+<script>
+const bgCanvas = document.getElementById('bg-canvas');
+const bgCtx = bgCanvas.getContext('2d');
+let bgW, bgH;
+
+function resizeBg() {
+  bgW = bgCanvas.width = window.innerWidth;
+  bgH = bgCanvas.height = window.innerHeight;
+}
+resizeBg();
+
+function makestar() {
+  const bright = Math.random() > 0.95;
+  const hueRoll = Math.random();
+  const hue = hueRoll < 0.6 ? 200 + Math.random()*30 : hueRoll < 0.85 ? 170 + Math.random()*20 : 45 + Math.random()*20;
+  return {
+    x: Math.random() * bgW, y: Math.random() * bgH,
+    r: bright ? 1.6 + Math.random()*1.2 : 0.25 + Math.random()*1.1,
+    vx: (Math.random()-0.5)*0.12, vy: (Math.random()-0.5)*0.08,
+    phase: Math.random()*Math.PI*2, tSpeed: 0.008 + Math.random()*0.025,
+    aMin: bright ? 0.35 : 0.05, aMax: bright ? 0.95 : 0.55,
+    hue, bright,
+    flareTimer: 0, flareInterval: 180 + Math.floor(Math.random()*600), flareAge: 0,
+  };
+}
+
+let stars = [];
+function initStars() { stars = Array.from({length: 200}, makestar); }
+initStars();
+window.addEventListener('resize', () => { resizeBg(); initStars(); });
+
+const shooters = [];
+function spawnShooter() {
+  const angle = (Math.PI/6) + Math.random()*(Math.PI/5);
+  const speed = 8 + Math.random()*10;
+  shooters.push({
+    x: Math.random()*bgW*0.7, y: Math.random()*bgH*0.4,
+    vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed,
+    len: 80 + Math.random()*120, life: 1.0,
+    decay: 0.018 + Math.random()*0.012, hue: 190 + Math.random()*40,
+  });
+}
+let shooterTimer = 0, nextShooterIn = 160 + Math.random()*220;
+
+function drawBg() {
+  bgCtx.clearRect(0, 0, bgW, bgH);
+  stars.forEach(s => {
+    s.x += s.vx; s.y += s.vy;
+    if (s.x < -4) s.x = bgW+4; if (s.x > bgW+4) s.x = -4;
+    if (s.y < -4) s.y = bgH+4; if (s.y > bgH+4) s.y = -4;
+    s.phase += s.tSpeed;
+    let alpha = s.aMin + (Math.sin(s.phase)*0.5+0.5) * (s.aMax - s.aMin);
+    s.flareTimer++;
+    if (s.flareTimer >= s.flareInterval) {
+      s.flareAge++;
+      alpha = Math.min(1, alpha + Math.sin(s.flareAge/40*Math.PI)*0.6);
+      if (s.flareAge >= 40) { s.flareTimer=0; s.flareAge=0; s.flareInterval=180+Math.floor(Math.random()*600); }
+    }
+    const r = s.bright && s.flareAge > 0 ? s.r*(1+Math.sin(s.flareAge/40*Math.PI)*0.8) : s.r;
+    if (s.bright) {
+      const grd = bgCtx.createRadialGradient(s.x,s.y,0,s.x,s.y,r*5);
+      grd.addColorStop(0, `hsla(${s.hue},80%,90%,${alpha*0.6})`);
+      grd.addColorStop(0.4, `hsla(${s.hue},70%,80%,${alpha*0.2})`);
+      grd.addColorStop(1, `hsla(${s.hue},60%,70%,0)`);
+      bgCtx.beginPath(); bgCtx.arc(s.x,s.y,r*5,0,Math.PI*2); bgCtx.fillStyle=grd; bgCtx.fill();
+    }
+    bgCtx.beginPath(); bgCtx.arc(s.x,s.y,r,0,Math.PI*2);
+    bgCtx.fillStyle=`hsla(${s.hue},70%,92%,${alpha})`; bgCtx.fill();
+  });
+  shooterTimer++;
+  if (shooterTimer >= nextShooterIn) { spawnShooter(); shooterTimer=0; nextShooterIn=150+Math.random()*220; }
+  for (let i = shooters.length-1; i >= 0; i--) {
+    const sh = shooters[i];
+    sh.x += sh.vx; sh.y += sh.vy; sh.life -= sh.decay;
+    if (sh.life <= 0) { shooters.splice(i,1); continue; }
+    const spd = Math.sqrt(sh.vx*sh.vx+sh.vy*sh.vy);
+    const tailX = sh.x - sh.vx*(sh.len/spd), tailY = sh.y - sh.vy*(sh.len/spd);
+    const grd = bgCtx.createLinearGradient(tailX,tailY,sh.x,sh.y);
+    grd.addColorStop(0,`hsla(${sh.hue},80%,90%,0)`);
+    grd.addColorStop(0.7,`hsla(${sh.hue},80%,90%,${sh.life*0.4})`);
+    grd.addColorStop(1,`hsla(${sh.hue},90%,98%,${sh.life})`);
+    bgCtx.beginPath(); bgCtx.moveTo(tailX,tailY); bgCtx.lineTo(sh.x,sh.y);
+    bgCtx.strokeStyle=grd; bgCtx.lineWidth=1.5*sh.life; bgCtx.lineCap='round'; bgCtx.stroke();
+    bgCtx.beginPath(); bgCtx.arc(sh.x,sh.y,2*sh.life,0,Math.PI*2);
+    bgCtx.fillStyle=`hsla(${sh.hue},90%,98%,${sh.life*0.9})`; bgCtx.fill();
+  }
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+const dfCanvas = document.getElementById('dragonfly-canvas');
+const dfCtx = dfCanvas.getContext('2d');
+
+function resizeDf() {
+  const hero = document.getElementById('hero-text');
+  dfCanvas.width = hero.offsetWidth + 240;
+  dfCanvas.height = hero.offsetHeight + 240;
+  dfCanvas.style.left = '-120px';
+  dfCanvas.style.top = '-120px';
+}
+
+function getAttractors() {
+  const w=dfCanvas.width, h=dfCanvas.height, cx=w/2, cy=h/2, pts=[];
+  const ls = w*0.42;
+  for (let i=0;i<6;i++) pts.push({x:cx-ls/2+(ls/5)*i+Math.random()*30-15, y:cy-10+Math.random()*20-10});
+  for (let i=0;i<7;i++) pts.push({x:cx-ls*0.45+(ls*0.9/6)*i+Math.random()*30-15, y:cy+72+Math.random()*20-10});
+  return pts;
+}
+
+class Dragonfly {
+  constructor(a) { this.attractors=a; this.reset(); }
+  reset() {
+    const w=dfCanvas.width, h=dfCanvas.height;
+    this.x=Math.random()*w; this.y=Math.random()*h;
+    this.vx=(Math.random()-0.5)*2; this.vy=(Math.random()-0.5)*2;
+    this.target=this.attractors[Math.floor(Math.random()*this.attractors.length)];
+    this.nextTargetTime=Date.now()+1500+Math.random()*3000;
+    this.size=7+Math.random()*7; this.hue=160+Math.random()*40;
+    this.wingPhase=Math.random()*Math.PI*2; this.wingSpeed=0.18+Math.random()*0.12;
+    this.angle=0; this.trail=[]; this.maxTrail=12;
+    this.hover=Math.random()<0.3; this.hoverTimer=0;
+  }
+  update() {
+    const now=Date.now();
+    if (now>this.nextTargetTime) {
+      this.target=this.attractors[Math.floor(Math.random()*this.attractors.length)];
+      this.nextTargetTime=now+1800+Math.random()*3500;
+      this.hover=Math.random()<0.35;
+      this.hoverTimer=this.hover?60+Math.random()*80:0;
+    }
+    const dx=this.target.x-this.x, dy=this.target.y-this.y;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if (this.hoverTimer>0) {
+      this.hoverTimer--;
+      this.vx+=Math.sin(now*0.003+this.wingPhase)*0.15;
+      this.vy+=Math.cos(now*0.0025+this.wingPhase)*0.15;
+    } else {
+      if (dist>20) { const f=0.04+(dist>200?0.06:0); this.vx+=(dx/dist)*f; this.vy+=(dy/dist)*f; }
+      else { this.vx+=-dy*0.005; this.vy+=dx*0.005; }
+    }
+    this.vx+=(Math.random()-0.5)*0.3; this.vy+=(Math.random()-0.5)*0.3;
+    const speed=Math.sqrt(this.vx*this.vx+this.vy*this.vy);
+    const ms=this.hoverTimer>0?1.5:3.5;
+    if (speed>ms) { this.vx=(this.vx/speed)*ms; this.vy=(this.vy/speed)*ms; }
+    this.x+=this.vx; this.y+=this.vy;
+    const pad=60;
+    if (this.x<-pad) this.x=dfCanvas.width+pad; if (this.x>dfCanvas.width+pad) this.x=-pad;
+    if (this.y<-pad) this.y=dfCanvas.height+pad; if (this.y>dfCanvas.height+pad) this.y=-pad;
+    if (speed>0.3) this.angle=Math.atan2(this.vy,this.vx);
+    this.wingPhase+=this.wingSpeed;
+    this.trail.push({x:this.x,y:this.y});
+    if (this.trail.length>this.maxTrail) this.trail.shift();
+  }
+  draw() {
+    const ctx=dfCtx;
+    if (this.trail.length>2) {
+      ctx.beginPath(); ctx.moveTo(this.trail[0].x,this.trail[0].y);
+      for (let i=1;i<this.trail.length;i++) ctx.lineTo(this.trail[i].x,this.trail[i].y);
+      ctx.strokeStyle=`hsla(${this.hue},80%,60%,0.12)`; ctx.lineWidth=1; ctx.stroke();
+    }
+    ctx.save(); ctx.translate(this.x,this.y); ctx.rotate(this.angle+Math.PI/2);
+    const s=this.size, wf=Math.abs(Math.sin(this.wingPhase));
+    for (let i=0;i<5;i++) {
+      const t=i/4, sw=s*0.28*(1-t*0.7), sy=s*0.1+i*s*0.28, al=0.85-t*0.2;
+      ctx.beginPath(); ctx.ellipse(0,sy,sw,s*0.16,0,0,Math.PI*2);
+      ctx.fillStyle=`hsla(${this.hue},70%,${45+t*15}%,${al})`; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(-sw*0.2,sy-s*0.05,sw*0.3,s*0.07,-0.3,0,Math.PI*2);
+      ctx.fillStyle=`hsla(${this.hue+20},90%,80%,0.3)`; ctx.fill();
+    }
+    ctx.beginPath(); ctx.ellipse(0,0,s*0.32,s*0.28,0,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${this.hue},65%,42%,0.95)`; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-s*0.08,-s*0.05,s*0.15,s*0.1,-0.4,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${this.hue+10},80%,75%,0.35)`; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(0,-s*0.38,s*0.22,s*0.2,0,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${this.hue},60%,35%,0.95)`; ctx.fill();
+    [[-s*0.13,-s*0.44],[s*0.13,-s*0.44]].forEach(([ex,ey])=>{
+      ctx.beginPath(); ctx.ellipse(ex,ey,s*0.11,s*0.1,0,0,Math.PI*2);
+      ctx.fillStyle=`hsla(${this.hue+60},60%,60%,0.9)`; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(ex-s*0.03,ey-s*0.03,s*0.04,s*0.04,0,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.fill();
+    });
+    const drawWing=(flip,fore)=>{
+      const wS=fore?1:0.72, yO=fore?-s*0.1:s*0.15;
+      ctx.save(); ctx.scale((0.5+wf*0.5)*flip,1);
+      ctx.beginPath(); ctx.moveTo(0,yO);
+      ctx.bezierCurveTo(s*1.1*wS*flip,yO-s*0.6*wS,s*1.5*wS*flip,yO-s*0.1*wS,s*0.9*wS*flip,yO+s*0.35*wS);
+      ctx.bezierCurveTo(s*0.5*wS*flip,yO+s*0.55*wS,0,yO+s*0.2*wS,0,yO);
+      const wg=ctx.createLinearGradient(0,yO,s*1.4*wS*flip,yO+s*0.3*wS);
+      wg.addColorStop(0,`hsla(${this.hue+20},70%,88%,0.08)`);
+      wg.addColorStop(0.4,`hsla(${this.hue+30},80%,82%,0.5)`);
+      wg.addColorStop(1,`hsla(${this.hue+50},60%,90%,0.15)`);
+      ctx.fillStyle=wg; ctx.fill();
+      ctx.strokeStyle=`hsla(${this.hue+20},70%,72%,0.5)`; ctx.lineWidth=0.5;
+      for (let v=0;v<3;v++) {
+        ctx.beginPath(); ctx.moveTo(0,yO);
+        ctx.quadraticCurveTo(s*(0.8+v*0.2)*wS*flip,yO-s*(0.4-v*0.15)*wS,s*(0.7+v*0.25)*wS*flip,yO+s*0.3*wS);
+        ctx.stroke();
+      }
+      ctx.beginPath(); ctx.ellipse(s*0.6*wS*flip,yO-s*0.15*wS,s*0.25*wS,s*0.08*wS,-0.3*flip,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.fill();
+      ctx.restore();
+    };
+    drawWing(1,true); drawWing(1,false); drawWing(-1,true); drawWing(-1,false);
+    ctx.restore();
+  }
+}
+
+let dragonflies = [];
+function initDragonflies() { resizeDf(); const a=getAttractors(); dragonflies=Array.from({length:18},()=>new Dragonfly(a)); }
+function animateDragonflies() { dfCtx.clearRect(0,0,dfCanvas.width,dfCanvas.height); dragonflies.forEach(d=>{d.update();d.draw();}); requestAnimationFrame(animateDragonflies); }
+window.addEventListener('load', () => { initDragonflies(); animateDragonflies(); });
+window.addEventListener('resize', initDragonflies);
+
+const statNums = document.querySelectorAll('.stat-num');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el=entry.target, raw=el.textContent;
+      const num=parseFloat(raw.replace(/[^0-9.]/g,'')), suffix=raw.replace(/[0-9.]/g,'');
+      let start=0;
+      const step=(ts)=>{
+        if(!start) start=ts;
+        const p=Math.min((ts-start)/1800,1), ease=1-Math.pow(1-p,3);
+        el.textContent=num===Math.floor(num)?Math.floor(ease*num)+suffix:(ease*num).toFixed(1)+suffix;
+        if(p<1) requestAnimationFrame(step); else el.textContent=raw;
+      };
+      requestAnimationFrame(step);
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+statNums.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
