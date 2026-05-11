@@ -24,48 +24,25 @@
 
   nav {
     position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 0 48px;
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
+    z-index: 100; padding: 0 48px; height: 72px;
+    display: flex; align-items: center; justify-content: center; gap: 40px;
     background: linear-gradient(180deg, rgba(3,8,15,0.85) 0%, rgba(3,8,15,0) 100%);
     backdrop-filter: blur(4px);
   }
-
   nav a {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--mist);
-    text-decoration: none;
-    position: relative;
-    transition: color 0.3s;
-    white-space: nowrap;
+    font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--mist);
+    text-decoration: none; position: relative; transition: color 0.3s; white-space: nowrap;
   }
   nav a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--teal); transition:width 0.35s ease; }
   nav a:hover { color: var(--teal); }
   nav a:hover::after { width: 100%; }
 
   .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    position: fixed;
-    top: 22px; right: 24px;
-    z-index: 200;
-    padding: 6px;
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    position: fixed; top: 22px; right: 24px; z-index: 200; padding: 6px;
   }
-  .nav-toggle span {
-    display: block; width: 26px; height: 2px;
-    background: var(--mist);
-    transition: all 0.3s ease;
-  }
+  .nav-toggle span { display: block; width: 26px; height: 2px; background: var(--mist); transition: all 0.3s ease; }
   .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -73,64 +50,36 @@
   .nav-menu { display: flex; align-items: center; gap: 40px; }
 
   section {
-    position: relative; z-index: 1;
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
+    position: relative; z-index: 1; min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
   }
 
   #hero { overflow: hidden; }
 
   #hero-text {
-    position: relative; z-index: 2;
-    text-align: center; user-select: none;
-    padding: 0 20px;
-    width: 100%;
+    position: relative; z-index: 2; text-align: center;
+    user-select: none; padding: 0 20px; width: 100%;
   }
-
   #hero-text h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2.4rem, 8vw, 9rem);
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    line-height: 1.1;
+    font-family: 'Cinzel', serif; font-size: clamp(2.4rem, 8vw, 9rem);
+    font-weight: 400; letter-spacing: 0.06em; line-height: 1.1;
     background: linear-gradient(135deg, #e8f4f8 0%, #a8d8e8 40%, #00c9b1 70%, #c9a84c 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 40px rgba(0,201,177,0.25));
-    word-break: keep-all;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; filter: drop-shadow(0 0 40px rgba(0,201,177,0.25)); word-break: keep-all;
   }
-
   #hero-text p {
-    margin-top: 18px;
-    font-size: clamp(0.55rem, 1.8vw, 0.75rem);
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--dim);
+    margin-top: 18px; font-size: clamp(0.55rem, 1.8vw, 0.75rem);
+    letter-spacing: 0.4em; text-transform: uppercase; color: var(--dim);
   }
-
   #dragonfly-canvas { position: absolute; inset: -120px; pointer-events: none; }
 
   .section-inner { max-width: 860px; width: 90%; padding: 80px 0; }
-
-  .section-tag {
-    font-size: 0.65rem; letter-spacing: 0.45em;
-    text-transform: uppercase; color: var(--teal); margin-bottom: 20px;
-  }
-
-  .section-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(1.8rem, 4vw, 3.2rem);
-    font-weight: 400; color: var(--text);
-    margin-bottom: 40px; line-height: 1.2;
-  }
-
+  .section-tag { font-size: 0.65rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--teal); margin-bottom: 20px; }
+  .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 400; color: var(--text); margin-bottom: 40px; line-height: 1.2; }
   .divider { width: 60px; height: 1px; background: linear-gradient(90deg, var(--teal), transparent); margin-bottom: 40px; }
 
   #services { background: linear-gradient(180deg, var(--bg) 0%, var(--deep) 100%); }
   .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; }
-
   .service-card {
     background: rgba(0,201,177,0.03); border: 1px solid rgba(0,201,177,0.1);
     padding: 36px 30px; transition: all 0.4s ease; position: relative; overflow: hidden;
@@ -144,7 +93,6 @@
 
   #vizyon-misyon { background: var(--bg); }
   .vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
-
   .vm-card { padding: 50px 40px; position: relative; overflow: hidden; }
   .vm-card.vizyon { background: linear-gradient(135deg, rgba(0,201,177,0.06) 0%, rgba(0,201,177,0.02) 100%); border: 1px solid rgba(0,201,177,0.15); }
   .vm-card.misyon { background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.02) 100%); border: 1px solid rgba(201,168,76,0.15); }
@@ -169,11 +117,9 @@
   @keyframes pulse-ring { 0%,100%{opacity:0.15;transform:scale(1);} 50%{opacity:0.4;transform:scale(1.03);} }
   .comm-text p { font-size:0.88rem; line-height:2; color:var(--dim); font-weight:300; margin-bottom:16px; }
   .comm-text p strong { color:var(--mist); font-weight:400; }
-
   .mail-btn {
     margin-top: 32px; padding: 20px 24px;
-    border: 1px solid rgba(0,201,177,0.2);
-    background: rgba(0,201,177,0.04);
+    border: 1px solid rgba(0,201,177,0.2); background: rgba(0,201,177,0.04);
     display: inline-flex; align-items: center; gap: 14px;
     text-decoration: none; transition: background 0.3s, border-color 0.3s;
   }
@@ -198,12 +144,9 @@
     nav { justify-content: flex-start; padding: 0 24px; }
     .nav-toggle { display: flex; }
     .nav-menu {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(3,8,15,0.97);
-      flex-direction: column;
-      justify-content: center; align-items: center;
-      gap: 36px; z-index: 150;
+      display: none; position: fixed; inset: 0;
+      background: rgba(3,8,15,0.97); flex-direction: column;
+      justify-content: center; align-items: center; gap: 36px; z-index: 150;
     }
     .nav-menu.open { display: flex; }
     .nav-menu a { font-size: 1rem; letter-spacing: 0.3em; }
@@ -222,7 +165,6 @@
     .stat-num { font-size: 2.2rem; }
     .section-inner { padding: 60px 0; }
   }
-
   @media (max-width: 400px) {
     #hero-text h1 { font-size: 8.5vw; }
   }
@@ -349,15 +291,15 @@
     <div class="testimonials">
       <div class="testimonial">
         <p>"Alcera Digital, hayal ettiğimizin ötesine geçti. Her şey zamanında, bütçe dahilinde ve tam istediğimiz vizyonla teslim edildi."</p>
-        <cite>— Ayşe K., Kurucu, Işık Danışmanlık</cite>
+        <cite>— Ayşe K.</cite>
       </div>
       <div class="testimonial">
         <p>"Alcera ile çalışmak, şirketinizin içinde seçkin bir ekibe sahip olmak gibi. Başarımıza gösterdikleri özen gerçekten nadir rastlanan bir şey."</p>
-        <cite>— Emre Y., CTO, KuzeyKenar Teknoloji</cite>
+        <cite>— Emre Y.</cite>
       </div>
       <div class="testimonial">
         <p>"Pek çok ajansla çalıştım. Alcera'nın sunduğu düşünce kalitesi ve uygulama mükemmeliyetiyle hiçbiri boy ölçüşemedi."</p>
-        <cite>— Zeynep A., Direktör, Auros Grup</cite>
+        <cite>— Zeynep A.</cite>
       </div>
     </div>
   </div>
@@ -400,7 +342,10 @@ window.addEventListener('resize',()=>{resizeBg();initStars();});
 const shooters=[];
 function spawnShooter(){
   const a=(Math.PI/6)+Math.random()*(Math.PI/5),sp=8+Math.random()*10;
-  shooters.push({x:Math.random()*bgW*0.7,y:Math.random()*bgH*0.4,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,len:80+Math.random()*120,life:1,decay:0.018+Math.random()*0.012,hue:190+Math.random()*40});
+  shooters.push({x:Math.random()*bgW*0.7,y:Math.random()*bgH*0.4,
+    vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,
+    len:80+Math.random()*120,life:1,
+    decay:0.018+Math.random()*0.012,hue:190+Math.random()*40});
 }
 let sTimer=0,sNext=160+Math.random()*220;
 
@@ -413,10 +358,21 @@ function drawBg(){
     s.phase+=s.tSpeed;
     let al=s.aMin+(Math.sin(s.phase)*0.5+0.5)*(s.aMax-s.aMin);
     s.flareTimer++;
-    if(s.flareTimer>=s.flareInterval){s.flareAge++;al=Math.min(1,al+Math.sin(s.flareAge/40*Math.PI)*0.6);if(s.flareAge>=40){s.flareTimer=0;s.flareAge=0;s.flareInterval=180+Math.floor(Math.random()*600);}}
+    if(s.flareTimer>=s.flareInterval){
+      s.flareAge++;
+      al=Math.min(1,al+Math.sin(s.flareAge/40*Math.PI)*0.6);
+      if(s.flareAge>=40){s.flareTimer=0;s.flareAge=0;s.flareInterval=180+Math.floor(Math.random()*600);}
+    }
     const r=s.bright&&s.flareAge>0?s.r*(1+Math.sin(s.flareAge/40*Math.PI)*0.8):s.r;
-    if(s.bright){const g=bgCtx.createRadialGradient(s.x,s.y,0,s.x,s.y,r*5);g.addColorStop(0,`hsla(${s.hue},80%,90%,${al*0.6})`);g.addColorStop(0.4,`hsla(${s.hue},70%,80%,${al*0.2})`);g.addColorStop(1,`hsla(${s.hue},60%,70%,0)`);bgCtx.beginPath();bgCtx.arc(s.x,s.y,r*5,0,Math.PI*2);bgCtx.fillStyle=g;bgCtx.fill();}
-    bgCtx.beginPath();bgCtx.arc(s.x,s.y,r,0,Math.PI*2);bgCtx.fillStyle=`hsla(${s.hue},70%,92%,${al})`;bgCtx.fill();
+    if(s.bright){
+      const g=bgCtx.createRadialGradient(s.x,s.y,0,s.x,s.y,r*5);
+      g.addColorStop(0,`hsla(${s.hue},80%,90%,${al*0.6})`);
+      g.addColorStop(0.4,`hsla(${s.hue},70%,80%,${al*0.2})`);
+      g.addColorStop(1,`hsla(${s.hue},60%,70%,0)`);
+      bgCtx.beginPath();bgCtx.arc(s.x,s.y,r*5,0,Math.PI*2);bgCtx.fillStyle=g;bgCtx.fill();
+    }
+    bgCtx.beginPath();bgCtx.arc(s.x,s.y,r,0,Math.PI*2);
+    bgCtx.fillStyle=`hsla(${s.hue},70%,92%,${al})`;bgCtx.fill();
   });
   sTimer++;
   if(sTimer>=sNext){spawnShooter();sTimer=0;sNext=150+Math.random()*220;}
@@ -426,9 +382,13 @@ function drawBg(){
     const sp=Math.sqrt(sh.vx*sh.vx+sh.vy*sh.vy);
     const tx=sh.x-sh.vx*(sh.len/sp),ty=sh.y-sh.vy*(sh.len/sp);
     const g=bgCtx.createLinearGradient(tx,ty,sh.x,sh.y);
-    g.addColorStop(0,`hsla(${sh.hue},80%,90%,0)`);g.addColorStop(0.7,`hsla(${sh.hue},80%,90%,${sh.life*0.4})`);g.addColorStop(1,`hsla(${sh.hue},90%,98%,${sh.life})`);
-    bgCtx.beginPath();bgCtx.moveTo(tx,ty);bgCtx.lineTo(sh.x,sh.y);bgCtx.strokeStyle=g;bgCtx.lineWidth=1.5*sh.life;bgCtx.lineCap='round';bgCtx.stroke();
-    bgCtx.beginPath();bgCtx.arc(sh.x,sh.y,2*sh.life,0,Math.PI*2);bgCtx.fillStyle=`hsla(${sh.hue},90%,98%,${sh.life*0.9})`;bgCtx.fill();
+    g.addColorStop(0,`hsla(${sh.hue},80%,90%,0)`);
+    g.addColorStop(0.7,`hsla(${sh.hue},80%,90%,${sh.life*0.4})`);
+    g.addColorStop(1,`hsla(${sh.hue},90%,98%,${sh.life})`);
+    bgCtx.beginPath();bgCtx.moveTo(tx,ty);bgCtx.lineTo(sh.x,sh.y);
+    bgCtx.strokeStyle=g;bgCtx.lineWidth=1.5*sh.life;bgCtx.lineCap='round';bgCtx.stroke();
+    bgCtx.beginPath();bgCtx.arc(sh.x,sh.y,2*sh.life,0,Math.PI*2);
+    bgCtx.fillStyle=`hsla(${sh.hue},90%,98%,${sh.life*0.9})`;bgCtx.fill();
   }
   requestAnimationFrame(drawBg);
 }
@@ -436,14 +396,118 @@ drawBg();
 
 const dfCanvas=document.getElementById('dragonfly-canvas');
 const dfCtx=dfCanvas.getContext('2d');
-function resizeDf(){const hero=document.getElementById('hero-text');dfCanvas.width=hero.offsetWidth+240;dfCanvas.height=hero.offsetHeight+240;dfCanvas.style.left='-120px';dfCanvas.style.top='-120px';}
-function getAttractors(){const w=dfCanvas.width,h=dfCanvas.height,cx=w/2,cy=h/2,pts=[],ls=w*0.42;for(let i=0;i<6;i++)pts.push({x:cx-ls/2+(ls/5)*i+Math.random()*30-15,y:cy-10+Math.random()*20-10});for(let i=0;i<7;i++)pts.push({x:cx-ls*0.45+(ls*0.9/6)*i+Math.random()*30-15,y:cy+72+Math.random()*20-10});return pts;}
+
+function resizeDf(){
+  const hero=document.getElementById('hero-text');
+  dfCanvas.width=hero.offsetWidth+240;
+  dfCanvas.height=hero.offsetHeight+240;
+  dfCanvas.style.left='-120px';
+  dfCanvas.style.top='-120px';
+}
+
+function getAttractors(){
+  const w=dfCanvas.width,h=dfCanvas.height,cx=w/2,cy=h/2,pts=[],ls=w*0.42;
+  for(let i=0;i<6;i++) pts.push({x:cx-ls/2+(ls/5)*i+Math.random()*30-15,y:cy-10+Math.random()*20-10});
+  for(let i=0;i<7;i++) pts.push({x:cx-ls*0.45+(ls*0.9/6)*i+Math.random()*30-15,y:cy+72+Math.random()*20-10});
+  return pts;
+}
+
 class Dragonfly{
   constructor(a){this.attractors=a;this.reset();}
-  reset(){const w=dfCanvas.width,h=dfCanvas.height;this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-0.5)*2;this.vy=(Math.random()-0.5)*2;this.target=this.attractors[Math.floor(Math.random()*this.attractors.length)];this.nextTargetTime=Date.now()+1500+Math.random()*3000;this.size=7+Math.random()*7;this.hue=160+Math.random()*40;this.wingPhase=Math.random()*Math.PI*2;this.wingSpeed=0.18+Math.random()*0.12;this.angle=0;this.trail=[];this.maxTrail=12;this.hover=Math.random()<0.3;this.hoverTimer=0;}
-  update(){const now=Date.now();if(now>this.nextTargetTime){this.target=this.attractors[Math.floor(Math.random()*this.attractors.length)];this.nextTargetTime=now+1800+Math.random()*3500;this.hover=Math.random()<0.35;this.hoverTimer=this.hover?60+Math.random()*80:0;}const dx=this.target.x-this.x,dy=this.target.y-this.y,dist=Math.sqrt(dx*dx+dy*dy);if(this.hoverTimer>0){this.hoverTimer--;this.vx+=Math.sin(now*0.003+this.wingPhase)*0.15;this.vy+=Math.cos(now*0.0025+this.wingPhase)*0.15;}else{if(dist>20){const f=0.04+(dist>200?0.06:0);this.vx+=(dx/dist)*f;this.vy+=(dy/dist)*f;}else{this.vx+=-dy*0.005;this.vy+=dx*0.005;}}this.vx+=(Math.random()-0.5)*0.3;this.vy+=(Math.random()-0.5)*0.3;const sp=Math.sqrt(this.vx*this.vx+this.vy*this.vy),ms=this.hoverTimer>0?1.5:3.5;if(sp>ms){this.vx=(this.vx/sp)*ms;this.vy=(this.vy/sp)*ms;}this.x+=this.vx;this.y+=this.vy;const pad=60;if(this.x<-pad)this.x=dfCanvas.width+pad;if(this.x>dfCanvas.width+pad)this.x=-pad;if(this.y<-pad)this.y=dfCanvas.height+pad;if(this.y>dfCanvas.height+pad)this.y=-pad;if(sp>0.3)this.angle=Math.atan2(this.vy,this.vx);this.wingPhase+=this.wingSpeed;this.trail.push({x:this.x,y:this.y});if(this.trail.length>this.maxTrail)this.trail.shift();}
-  draw(){const ctx=dfCtx;if(this.trail.length>2){ctx.beginPath();ctx.moveTo(this.trail[0].x,this.trail[0].y);for(let i=1;i<this.trail.length;i++)ctx.lineTo(this.trail[i].x,this.trail[i].y);ctx.strokeStyle=`hsla(${this.hue},80%,60%,0.12)`;ctx.lineWidth=1;ctx.stroke();}ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.angle+Math.PI/2);const s=this.size,wf=Math.abs(Math.sin(this.wingPhase));for(let i=0;i<5;i++){const t=i/4,sw=s*0.28*(1-t*0.7),sy=s*0.1+i*s*0.28,al=0.85-t*0.2;ctx.beginPath();ctx.ellipse(0,sy,sw,s*0.16,0,0,Math.PI*2);ctx.fillStyle=`hsla(${this.hue},70%,${45+t*15}%,${al})`;ctx.fill();ctx.beginPath();ctx.ellipse(-sw*0.2,sy-s*0.05,sw*0.3,s*0.07,-0.3,0,Math.PI*2);ctx.fillStyle=`hsla(${this.hue+20},90%,80%,0.3)`;ctx.fill();}ctx.beginPath();ctx.ellipse(0,0,s*0.32,s*0.28,0,0,Math.PI*2);ctx.fillStyle=`hsla(${this.hue},65%,42%,0.95)`;ctx.fill();ctx.beginPath();ctx.ellipse(-s*0.08,-s*0.05,s*0.15,s*0.1,-0.4,0,Math.PI*2);ctx.fillStyle=`hsla(${this.hue+10},80%,75%,0.35)`;ctx.fill();ctx.beginPath();ctx.ellipse(0,-s*0.38,s*0.22,s*0.2,0,0,Math.PI*2);ctx.fillStyle=`hsla(${this.hue},60%,35%,0.95)`;ctx.fill();[[-s*0.13,-s*0.44],[s*0.13,-s*0.44]].forEach(([ex,ey])=>{ctx.beginPath();ctx.ellipse(ex,ey,s*0.11,s*0.1,0,0,Math.PI*2);ctx.fillStyle=`hsla(${this.hue+60},60%,60%,0.9)`;ctx.fill();ctx.beginPath();ctx.ellipse(ex-s*0.03,ey-s*0.03,s*0.04,s*0.04,0,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,0.6)';ctx.fill();});const dw=(flip,fore)=>{const wS=fore?1:0.72,yO=fore?-s*0.1:s*0.15;ctx.save();ctx.scale((0.5+wf*0.5)*flip,1);ctx.beginPath();ctx.moveTo(0,yO);ctx.bezierCurveTo(s*1.1*wS*flip,yO-s*0.6*wS,s*1.5*wS*flip,yO-s*0.1*wS,s*0.9*wS*flip,yO+s*0.35*wS);ctx.bezierCurveTo(s*0.5*wS*flip,yO+s*0.55*wS,0,yO+s*0.2*wS,0,yO);const wg=ctx.createLinearGradient(0,yO,s*1.4*wS*flip,yO+s*0.3*wS);wg.addColorStop(0,`hsla(${this.hue+20},70%,88%,0.08)`);wg.addColorStop(0.4,`hsla(${this.hue+30},80%,82%,0.5)`);wg.addColorStop(1,`hsla(${this.hue+50},60%,90%,0.15)`);ctx.fillStyle=wg;ctx.fill();ctx.strokeStyle=`hsla(${this.hue+20},70%,72%,0.5)`;ctx.lineWidth=0.5;for(let v=0;v<3;v++){ctx.beginPath();ctx.moveTo(0,yO);ctx.quadraticCurveTo(s*(0.8+v*0.2)*wS*flip,yO-s*(0.4-v*0.15)*wS,s*(0.7+v*0.25)*wS*flip,yO+s*0.3*wS);ctx.stroke();}ctx.beginPath();ctx.ellipse(s*0.6*wS*flip,yO-s*0.15*wS,s*0.25*wS,s*0.08*wS,-0.3*flip,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,0.2)';ctx.fill();ctx.restore();};dw(1,true);dw(1,false);dw(-1,true);dw(-1,false);ctx.restore();}
+  reset(){
+    const w=dfCanvas.width,h=dfCanvas.height;
+    this.x=Math.random()*w;this.y=Math.random()*h;
+    this.vx=(Math.random()-0.5)*2;this.vy=(Math.random()-0.5)*2;
+    this.target=this.attractors[Math.floor(Math.random()*this.attractors.length)];
+    this.nextTargetTime=Date.now()+1500+Math.random()*3000;
+    this.size=7+Math.random()*7;this.hue=160+Math.random()*40;
+    this.wingPhase=Math.random()*Math.PI*2;this.wingSpeed=0.18+Math.random()*0.12;
+    this.angle=0;this.trail=[];this.maxTrail=12;
+    this.hover=Math.random()<0.3;this.hoverTimer=0;
+  }
+  update(){
+    const now=Date.now();
+    if(now>this.nextTargetTime){
+      this.target=this.attractors[Math.floor(Math.random()*this.attractors.length)];
+      this.nextTargetTime=now+1800+Math.random()*3500;
+      this.hover=Math.random()<0.35;
+      this.hoverTimer=this.hover?60+Math.random()*80:0;
+    }
+    const dx=this.target.x-this.x,dy=this.target.y-this.y,dist=Math.sqrt(dx*dx+dy*dy);
+    if(this.hoverTimer>0){
+      this.hoverTimer--;
+      this.vx+=Math.sin(now*0.003+this.wingPhase)*0.15;
+      this.vy+=Math.cos(now*0.0025+this.wingPhase)*0.15;
+    }else{
+      if(dist>20){const f=0.04+(dist>200?0.06:0);this.vx+=(dx/dist)*f;this.vy+=(dy/dist)*f;}
+      else{this.vx+=-dy*0.005;this.vy+=dx*0.005;}
+    }
+    this.vx+=(Math.random()-0.5)*0.3;this.vy+=(Math.random()-0.5)*0.3;
+    const sp=Math.sqrt(this.vx*this.vx+this.vy*this.vy),ms=this.hoverTimer>0?1.5:3.5;
+    if(sp>ms){this.vx=(this.vx/sp)*ms;this.vy=(this.vy/sp)*ms;}
+    this.x+=this.vx;this.y+=this.vy;
+    const pad=60;
+    if(this.x<-pad)this.x=dfCanvas.width+pad;if(this.x>dfCanvas.width+pad)this.x=-pad;
+    if(this.y<-pad)this.y=dfCanvas.height+pad;if(this.y>dfCanvas.height+pad)this.y=-pad;
+    if(sp>0.3)this.angle=Math.atan2(this.vy,this.vx);
+    this.wingPhase+=this.wingSpeed;
+    this.trail.push({x:this.x,y:this.y});
+    if(this.trail.length>this.maxTrail)this.trail.shift();
+  }
+  draw(){
+    const ctx=dfCtx;
+    if(this.trail.length>2){
+      ctx.beginPath();ctx.moveTo(this.trail[0].x,this.trail[0].y);
+      for(let i=1;i<this.trail.length;i++)ctx.lineTo(this.trail[i].x,this.trail[i].y);
+      ctx.strokeStyle=`hsla(${this.hue},80%,60%,0.12)`;ctx.lineWidth=1;ctx.stroke();
+    }
+    ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.angle+Math.PI/2);
+    const s=this.size,wf=Math.abs(Math.sin(this.wingPhase));
+    for(let i=0;i<5;i++){
+      const t=i/4,sw=s*0.28*(1-t*0.7),sy=s*0.1+i*s*0.28,al=0.85-t*0.2;
+      ctx.beginPath();ctx.ellipse(0,sy,sw,s*0.16,0,0,Math.PI*2);
+      ctx.fillStyle=`hsla(${this.hue},70%,${45+t*15}%,${al})`;ctx.fill();
+      ctx.beginPath();ctx.ellipse(-sw*0.2,sy-s*0.05,sw*0.3,s*0.07,-0.3,0,Math.PI*2);
+      ctx.fillStyle=`hsla(${this.hue+20},90%,80%,0.3)`;ctx.fill();
+    }
+    ctx.beginPath();ctx.ellipse(0,0,s*0.32,s*0.28,0,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${this.hue},65%,42%,0.95)`;ctx.fill();
+    ctx.beginPath();ctx.ellipse(-s*0.08,-s*0.05,s*0.15,s*0.1,-0.4,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${this.hue+10},80%,75%,0.35)`;ctx.fill();
+    ctx.beginPath();ctx.ellipse(0,-s*0.38,s*0.22,s*0.2,0,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${this.hue},60%,35%,0.95)`;ctx.fill();
+    [[-s*0.13,-s*0.44],[s*0.13,-s*0.44]].forEach(([ex,ey])=>{
+      ctx.beginPath();ctx.ellipse(ex,ey,s*0.11,s*0.1,0,0,Math.PI*2);
+      ctx.fillStyle=`hsla(${this.hue+60},60%,60%,0.9)`;ctx.fill();
+      ctx.beginPath();ctx.ellipse(ex-s*0.03,ey-s*0.03,s*0.04,s*0.04,0,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.6)';ctx.fill();
+    });
+    const dw=(flip,fore)=>{
+      const wS=fore?1:0.72,yO=fore?-s*0.1:s*0.15;
+      ctx.save();ctx.scale((0.5+wf*0.5)*flip,1);
+      ctx.beginPath();ctx.moveTo(0,yO);
+      ctx.bezierCurveTo(s*1.1*wS*flip,yO-s*0.6*wS,s*1.5*wS*flip,yO-s*0.1*wS,s*0.9*wS*flip,yO+s*0.35*wS);
+      ctx.bezierCurveTo(s*0.5*wS*flip,yO+s*0.55*wS,0,yO+s*0.2*wS,0,yO);
+      const wg=ctx.createLinearGradient(0,yO,s*1.4*wS*flip,yO+s*0.3*wS);
+      wg.addColorStop(0,`hsla(${this.hue+20},70%,88%,0.08)`);
+      wg.addColorStop(0.4,`hsla(${this.hue+30},80%,82%,0.5)`);
+      wg.addColorStop(1,`hsla(${this.hue+50},60%,90%,0.15)`);
+      ctx.fillStyle=wg;ctx.fill();
+      ctx.strokeStyle=`hsla(${this.hue+20},70%,72%,0.5)`;ctx.lineWidth=0.5;
+      for(let v=0;v<3;v++){
+        ctx.beginPath();ctx.moveTo(0,yO);
+        ctx.quadraticCurveTo(s*(0.8+v*0.2)*wS*flip,yO-s*(0.4-v*0.15)*wS,s*(0.7+v*0.25)*wS*flip,yO+s*0.3*wS);
+        ctx.stroke();
+      }
+      ctx.beginPath();ctx.ellipse(s*0.6*wS*flip,yO-s*0.15*wS,s*0.25*wS,s*0.08*wS,-0.3*flip,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,0.2)';ctx.fill();
+      ctx.restore();
+    };
+    dw(1,true);dw(1,false);dw(-1,true);dw(-1,false);
+    ctx.restore();
+  }
 }
+
 let dragonflies=[];
 function initDragonflies(){resizeDf();const a=getAttractors();dragonflies=Array.from({length:18},()=>new Dragonfly(a));}
 function animateDragonflies(){dfCtx.clearRect(0,0,dfCanvas.width,dfCanvas.height);dragonflies.forEach(d=>{d.update();d.draw();});requestAnimationFrame(animateDragonflies);}
@@ -457,7 +521,12 @@ const observer=new IntersectionObserver(entries=>{
     const el=entry.target,raw=el.textContent;
     const num=parseFloat(raw.replace(/[^0-9.]/g,'')),suf=raw.replace(/[0-9.]/g,'');
     let t0=0;
-    const step=ts=>{if(!t0)t0=ts;const p=Math.min((ts-t0)/1800,1),e=1-Math.pow(1-p,3);el.textContent=num===Math.floor(num)?Math.floor(e*num)+suf:(e*num).toFixed(1)+suf;if(p<1)requestAnimationFrame(step);else el.textContent=raw;};
+    const step=ts=>{
+      if(!t0)t0=ts;
+      const p=Math.min((ts-t0)/1800,1),e=1-Math.pow(1-p,3);
+      el.textContent=num===Math.floor(num)?Math.floor(e*num)+suf:(e*num).toFixed(1)+suf;
+      if(p<1)requestAnimationFrame(step);else el.textContent=raw;
+    };
     requestAnimationFrame(step);
     observer.unobserve(el);
   });
