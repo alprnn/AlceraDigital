@@ -18,7 +18,7 @@
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Alcera Digital",
-  "email": "alceradigital.contact@gmail.com",
+  "email": "info@alceradigital.com",
   "telephone": "+905300119472",
   "sameAs": ["https://www.instagram.com/alceradigital"]
 }
@@ -118,7 +118,7 @@
   .menu-open .mmenu{clip-path:circle(150% at calc(100% - 40px) 38px)}
   .mmenu a.big{display:block;font-size:clamp(40px,11vw,64px);font-weight:700;letter-spacing:-.04em;line-height:1.15;opacity:0;transform:translateY(30px);transition:opacity .6s,transform .8s var(--ease)}
   .menu-open .mmenu a.big{opacity:1;transform:none}
-  .menu-open .mmenu a.big:nth-child(2){transition-delay:.06s}.menu-open .mmenu a.big:nth-child(3){transition-delay:.12s}.menu-open .mmenu a.big:nth-child(4){transition-delay:.18s}
+  .menu-open .mmenu a.big:nth-child(2){transition-delay:.06s}.menu-open .mmenu a.big:nth-child(3){transition-delay:.12s}.menu-open .mmenu a.big:nth-child(4){transition-delay:.18s}.menu-open .mmenu a.big:nth-child(5){transition-delay:.24s}
   .mmenu-foot{color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:6px}
 
   /* Hero */
@@ -285,6 +285,52 @@
   .f-giant.in span{transform:none}
   .f-giant span:nth-child(2){transition-delay:.04s}.f-giant span:nth-child(3){transition-delay:.08s}.f-giant span:nth-child(4){transition-delay:.12s}.f-giant span:nth-child(5){transition-delay:.16s}.f-giant span:nth-child(6){transition-delay:.2s}
 
+  /* Application */
+  .apply{border-top:1px solid var(--line)}
+  .ap-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+  .ap-opt{position:relative;cursor:pointer;display:block}
+  .ap-opt input{position:absolute;opacity:0;pointer-events:none}
+  .ap-card{display:flex;flex-direction:column;gap:14px;height:100%;border:1px solid var(--line);border-radius:28px;padding:clamp(24px,3vw,36px);background:var(--bg-2);transition:border-color .4s,background .5s var(--ease),color .5s var(--ease)}
+  .ap-no{font-family:'Instrument Serif',serif;font-style:italic;font-size:34px;line-height:1;color:var(--accent);transition:color .5s}
+  .ap-card b{font-size:clamp(24px,2.4vw,34px);font-weight:700;letter-spacing:-.035em;line-height:1.02}
+  .ap-card small{color:var(--muted);font-size:14.5px;font-weight:300;line-height:1.5;transition:color .5s}
+  .ap-opt:hover .ap-card{border-color:rgba(255,255,255,.28)}
+  .ap-opt input:checked + .ap-card{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  .ap-opt input:checked + .ap-card small,.ap-opt input:checked + .ap-card .ap-no{color:var(--accent-ink)}
+  .ap-opt input:focus-visible + .ap-card{outline:2px solid var(--accent);outline-offset:4px}
+  .ap-label{font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.025em;margin-bottom:20px}
+  .ap-hint{color:var(--muted);font-size:14px;padding:8px 4px}
+  .ap-form{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px;border:1px solid var(--line);border-radius:32px;padding:clamp(24px,4vw,48px);background:var(--bg-2);animation:apIn .8s var(--ease)}
+  .ap-form[hidden],.ap-done[hidden],.fld[hidden]{display:none}
+  @keyframes apIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .ap-title{grid-column:1/-1;font-size:clamp(22px,2.2vw,30px);font-weight:700;letter-spacing:-.03em}
+  .ap-title .serif{color:var(--accent)}
+  .fld{display:flex;flex-direction:column;gap:10px;min-width:0;border:0}
+  .fld.full{grid-column:1/-1}
+  .fld > span,.fld legend{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0}
+  .fld legend{margin-bottom:10px}
+  .fld input,.fld textarea{font:inherit;font-size:16px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:15px 18px;width:100%;transition:border-color .3s}
+  .fld textarea{min-height:150px;resize:vertical;line-height:1.5}
+  .fld input::placeholder,.fld textarea::placeholder{color:#5f5e5a}
+  .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{position:relative;cursor:pointer}
+  .chip input{position:absolute;opacity:0;width:1px;height:1px}
+  .chip span{display:inline-block;padding:13px 22px;border:1px solid var(--line);border-radius:100px;font-size:15px;font-weight:600;background:var(--bg);transition:background .4s,color .4s,border-color .4s}
+  .chip:hover span{border-color:rgba(255,255,255,.3)}
+  .chip input:checked + span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .chip input:focus-visible + span{outline:2px solid var(--accent);outline-offset:3px}
+  .ap-foot{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:6px}
+  .ap-note{font-size:13px;color:var(--muted);max-width:440px}
+  .ap-err{grid-column:1/-1;color:#ff8a7a;font-size:14px}
+  .ap-err a{text-decoration:underline}
+  .ap-form button[disabled]{opacity:.6;pointer-events:none}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .ap-done{border:1px solid var(--accent);border-radius:32px;padding:clamp(32px,5vw,64px);background:linear-gradient(160deg,#1a1c10 0%,#121214 70%);animation:apIn .8s var(--ease)}
+  .ap-done h3{font-size:clamp(32px,4vw,56px);font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:16px}
+  .ap-done h3 .serif{color:var(--accent)}
+  .ap-done p{color:#bdbcb7;font-weight:300;max-width:560px;margin-bottom:28px}
+
   /* Floating WA */
   .wa-float{position:fixed;right:22px;bottom:22px;z-index:80;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(37,211,102,.35);transform:scale(0);transition:transform .6s var(--ease)}
   .wa-float.show{transform:scale(1)}
@@ -309,6 +355,7 @@
     .svc-desc{grid-column:1/4}
     .mv{grid-template-columns:1fr}
     .mv-card{min-height:380px}
+    .ap-opts,.ap-form{grid-template-columns:1fr}
     .contact{grid-template-columns:1fr}
     .c-item,.c-item + .c-item{padding:32px 0;border-left:0}
     .c-item + .c-item{border-top:1px solid var(--line)}
@@ -373,7 +420,7 @@
       <li><a href="#surec"><span data-t="Süreç">Süreç</span></a></li>
       <li><a href="#hakkimizda"><span data-t="Hakkımızda">Hakkımızda</span></a></li>
       <li><a href="#iletisim"><span data-t="İletişim">İletişim</span></a></li>
-      <li style="margin-left:10px"><a href="https://wa.me/905300119472" target="_blank" rel="noopener" class="btn btn-accent btn-sm magnetic" style="padding:11px 20px;color:var(--accent-ink)"><svg><use href="#i-wa"/></svg>Teklif Al</a></li>
+      <li style="margin-left:10px"><a href="#basvuru" class="btn btn-accent btn-sm magnetic" style="padding:11px 20px;color:var(--accent-ink)">Başvuru<svg class="arrow"><use href="#i-arrow"/></svg></a></li>
     </ul>
     <button class="burger" id="burger" aria-label="Menüyü aç"><i></i><i></i></button>
   </div>
@@ -384,12 +431,13 @@
     <a class="big" href="#hizmetler">Hizmetler</a>
     <a class="big" href="#surec">Süreç</a>
     <a class="big" href="#hakkimizda">Hakkımızda</a>
+    <a class="big" href="#basvuru">Başvuru</a>
     <a class="big" href="#iletisim">İletişim</a>
   </nav>
   <div class="mmenu-foot">
     <a href="https://wa.me/905300119472" target="_blank" rel="noopener" class="btn btn-accent" style="align-self:flex-start;margin-bottom:18px"><svg><use href="#i-wa"/></svg>WhatsApp'tan Yaz</a>
     <span>0530 011 94 72</span>
-    <span>alceradigital.contact@gmail.com</span>
+    <span>info@alceradigital.com</span>
   </div>
 </div>
 
@@ -552,6 +600,78 @@
   </div>
 </section>
 
+<!-- Application -->
+<section class="sec apply" id="basvuru">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="tag reveal">Başvuru</div>
+      <h2 class="h2 split">Hizmet almak için <span class="serif">başvurun.</span></h2>
+    </div>
+
+    <h3 class="ap-label reveal" id="apLabel">Alacağınız hizmeti seçiniz</h3>
+    <div class="ap-opts" role="radiogroup" aria-labelledby="apLabel">
+      <label class="ap-opt reveal">
+        <input type="radio" name="hizmet" value="Meta Reklam" form="apForm" required>
+        <span class="ap-card"><span class="ap-no">01</span><b>Meta Reklam Hizmeti</b><small>Facebook & Instagram reklamlarınızı hedef kitlenize göre kurup yönetiyoruz.</small></span>
+      </label>
+      <label class="ap-opt reveal">
+        <input type="radio" name="hizmet" value="Web Sitesi" form="apForm">
+        <span class="ap-card"><span class="ap-no">02</span><b>Web Sitesi Hizmeti</b><small>Kurumsal site, e-ticaret veya landing page; markanıza özel tasarım.</small></span>
+      </label>
+      <label class="ap-opt reveal">
+        <input type="radio" name="hizmet" value="Meta Reklam + Web Sitesi" form="apForm">
+        <span class="ap-card"><span class="ap-no">03</span><b>Meta Reklam + Web Sitesi</b><small>İkisi bir arada: sitenizi kuralım, reklamlarla trafiği getirelim.</small></span>
+      </label>
+    </div>
+    <p class="ap-hint" id="apHint">Başvuru formunu açmak için yukarıdan almak istediğiniz hizmeti seçin.</p>
+
+    <form class="ap-form" id="apForm" hidden>
+      <div class="ap-title" id="apTitle"></div>
+      <label class="fld"><span>Yetkili Ad Soyad</span><input name="adSoyad" required maxlength="120" autocomplete="name" placeholder="Adınız ve soyadınız"></label>
+      <label class="fld"><span>İletişim Numarası</span><input name="telefon" type="tel" required maxlength="30" autocomplete="tel" inputmode="tel" placeholder="05xx xxx xx xx"></label>
+      <label class="fld"><span>İşletme Adı</span><input name="isletme" required maxlength="160" autocomplete="organization" placeholder="İşletmenizin adı"></label>
+      <label class="fld"><span>Sektör</span><input name="sektor" required maxlength="120" placeholder="Örn. restoran, otel, emlak"></label>
+      <fieldset class="fld full" data-only="meta">
+        <legend>Aylık Reklam Bütçesi</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="butce" value="15-25 bin TL" required><span>15–25 bin TL</span></label>
+          <label class="chip"><input type="radio" name="butce" value="25-35 bin TL"><span>25–35 bin TL</span></label>
+          <label class="chip"><input type="radio" name="butce" value="35-50+ bin TL"><span>35–50+ bin TL</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="fld full">
+        <legend>Görüşme İçin Uygun Saat Aralığı</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="saat" value="10:00-11:00" required><span>10:00 – 11:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="11:00-12:00"><span>11:00 – 12:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="12:00-13:00"><span>12:00 – 13:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="13:00-14:00"><span>13:00 – 14:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="14:00-15:00"><span>14:00 – 15:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="15:00-16:00"><span>15:00 – 16:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="16:00-17:00"><span>16:00 – 17:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="17:00-18:00"><span>17:00 – 18:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="18:00-19:00"><span>18:00 – 19:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="19:00-20:00"><span>19:00 – 20:00</span></label>
+          <label class="chip"><input type="radio" name="saat" value="20:00-21:00"><span>20:00 – 21:00</span></label>
+        </div>
+      </fieldset>
+      <label class="fld full" data-only="web"><span>Projenizi Kısaca Anlatın</span><textarea name="proje" required maxlength="3000" placeholder="Nasıl bir web sitesi istiyorsunuz? Örnek aldığınız siteler, sayfalar, özellikler…"></textarea></label>
+      <div class="hp" aria-hidden="true"><label>Web sitesi<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <p class="ap-err" id="apErr" role="alert" hidden></p>
+      <div class="ap-foot">
+        <p class="ap-note">Bilgileriniz yalnızca sizinle iletişime geçmek için kullanılır. En kısa sürede dönüş yapıyoruz.</p>
+        <button class="btn btn-accent" type="submit" id="apBtn">Başvuruyu Gönder<svg class="arrow"><use href="#i-arrow"/></svg></button>
+      </div>
+    </form>
+
+    <div class="ap-done" id="apDone" hidden>
+      <h3>Başvurunuz <span class="serif">alındı.</span></h3>
+      <p>Teşekkürler! Ekibimiz başvurunuzu inceleyip en kısa sürede sizinle iletişime geçecek. Beklemek istemezseniz WhatsApp'tan da yazabilirsiniz.</p>
+      <a href="https://wa.me/905300119472" target="_blank" rel="noopener" class="btn btn-accent"><svg><use href="#i-wa"/></svg>WhatsApp'tan Yaz</a>
+    </div>
+  </div>
+</section>
+
 <!-- CTA + Contact -->
 <section class="cta" id="iletisim">
   <div class="wrap">
@@ -572,9 +692,9 @@
         <span class="c-val">0530 011 94 72</span>
         <span class="c-desc">En hızlı yanıt için WhatsApp'tan yazın, hemen dönüş yapalım.</span>
       </a>
-      <a class="c-item reveal" href="mailto:alceradigital.contact@gmail.com">
+      <a class="c-item reveal" href="mailto:info@alceradigital.com">
         <span class="c-label"><svg><use href="#i-mail"/></svg>E-posta</span>
-        <span class="c-val">alceradigital.contact@gmail.com</span>
+        <span class="c-val">info@alceradigital.com</span>
         <span class="c-desc">Detaylı proje bilgisi ve teklif talepleriniz için.</span>
       </a>
       <a class="c-item reveal" href="https://www.instagram.com/alceradigital" target="_blank" rel="noopener">
@@ -595,6 +715,7 @@
         <a href="#hizmetler">Hizmetler</a>
         <a href="#surec">Süreç</a>
         <a href="#hakkimizda">Hakkımızda</a>
+        <a href="#basvuru">Başvuru</a>
         <a href="https://www.instagram.com/alceradigital" target="_blank" rel="noopener">Instagram</a>
         <a href="#top">Yukarı ↑</a>
       </nav>
@@ -838,6 +959,77 @@
       }
     })();
   }
+})();
+</script>
+<script>
+/* Başvuru formu */
+(() => {
+  const form = document.getElementById('apForm');
+  const hint = document.getElementById('apHint');
+  const title = document.getElementById('apTitle');
+  const err = document.getElementById('apErr');
+  const btn = document.getElementById('apBtn');
+  const done = document.getElementById('apDone');
+  const opts = document.querySelectorAll('input[name="hizmet"]');
+  const btnHTML = btn.innerHTML;
+
+  const select = value => {
+    const meta = value !== 'Web Sitesi', web = value !== 'Meta Reklam';
+    form.querySelectorAll('[data-only]').forEach(el => {
+      const on = el.dataset.only === 'meta' ? meta : web;
+      el.hidden = !on;
+      el.querySelectorAll('input, textarea').forEach(i => i.disabled = !on);
+    });
+    title.innerHTML = '';
+    title.append(value + ' ', Object.assign(document.createElement('span'), { className: 'serif', textContent: 'başvurusu' }));
+    hint.hidden = true;
+    err.hidden = true;
+    if (form.hidden) {
+      form.hidden = false;
+      done.hidden = true;
+      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+  opts.forEach(o => o.addEventListener('change', () => select(o.value)));
+
+  const showErr = msg => {
+    err.innerHTML = msg + ' Dilerseniz <a href="https://wa.me/905300119472" target="_blank" rel="noopener">WhatsApp\'tan</a> da yazabilirsiniz.';
+    err.hidden = false;
+  };
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+    if (String(data.telefon || '').replace(/\D/g, '').length < 10) {
+      form.telefon.setCustomValidity('Lütfen geçerli bir telefon numarası girin.');
+      form.telefon.reportValidity();
+      return;
+    }
+    err.hidden = true;
+    btn.disabled = true;
+    btn.textContent = 'Gönderiliyor…';
+    try {
+      const res = await fetch('/api/basvuru', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.ok) throw new Error(out.error || res.status);
+      form.reset();
+      opts.forEach(o => o.checked = false);
+      form.hidden = true;
+      hint.hidden = true;
+      done.hidden = false;
+      done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (x) {
+      showErr(x.message === 'missing_fields' ? 'Lütfen tüm alanları eksiksiz doldurun.' : 'Başvurunuz gönderilemedi, lütfen tekrar deneyin.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = btnHTML;
+    }
+  });
+  form.telefon.addEventListener('input', () => form.telefon.setCustomValidity(''));
 })();
 </script>
 </body>

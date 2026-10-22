@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Alcera Admin Paneli</title>
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0c;
+    --bg-2:#121214;
+    --bg-3:#18181b;
+    --line:rgba(255,255,255,.09);
+    --text:#efeee9;
+    --muted:#8d8c88;
+    --accent:#d4ff3a;
+    --accent-ink:#0b0b0c;
+    --wa:#25D366;
+    --danger:#ff8a7a;
+    --gutter:clamp(16px,4vw,40px);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Manrope',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  button,input,select{font:inherit;color:inherit}
+  .serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+  [hidden]{display:none!important}
+
+  /* Login */
+  .login{min-height:100vh;display:grid;place-items:center;padding:24px var(--gutter)}
+  .login-box{width:100%;max-width:400px;display:flex;flex-direction:column;gap:20px}
+  .login-box img{height:44px;width:auto;align-self:flex-start}
+  .login-box h1{font-size:40px;font-weight:700;letter-spacing:-.04em;line-height:1}
+  .login-box h1 .serif{color:var(--accent)}
+  .input{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:15px 18px;font-size:16px;transition:border-color .3s}
+  .input:focus{outline:none;border-color:var(--accent)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:100px;padding:14px 24px;font-weight:700;font-size:15px;cursor:pointer;background:var(--accent);color:var(--accent-ink);transition:opacity .2s,background .3s}
+  .btn:hover{background:#fff}
+  .btn[disabled]{opacity:.6;pointer-events:none}
+  .btn-ghost{background:none;border:1px solid var(--line);color:var(--text);font-weight:600}
+  .btn-ghost:hover{background:var(--bg-3)}
+  .btn-sm{padding:9px 16px;font-size:13px}
+  .err{color:var(--danger);font-size:14px}
+
+  /* Panel */
+  .top{position:sticky;top:0;z-index:5;background:rgba(11,11,12,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .top-in{max-width:1320px;margin:0 auto;padding:14px var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .top img{height:34px;width:auto}
+  .top-actions{display:flex;gap:8px}
+  main{max-width:1320px;margin:0 auto;padding:32px var(--gutter) 80px}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+  .head h1{font-size:clamp(34px,5vw,56px);font-weight:700;letter-spacing:-.045em;line-height:1}
+  .head h1 .serif{color:var(--accent)}
+  .head p{color:var(--muted);font-size:14px}
+
+  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+  .stat{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+  .stat b{display:block;font-size:32px;font-weight:700;letter-spacing:-.04em;line-height:1.1;font-variant-numeric:tabular-nums}
+  .stat span{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+  .stat.hl{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .stat.hl span{color:#3c4a0a}
+
+  .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+  .seg{display:flex;flex-wrap:wrap;gap:6px}
+  .seg button{border:1px solid var(--line);background:none;border-radius:100px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+  .seg button:hover{border-color:rgba(255,255,255,.3)}
+  .seg button.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+  .filters select,.filters .search{background:var(--bg-2);border:1px solid var(--line);border-radius:100px;padding:9px 16px;font-size:13px}
+  .filters .search{flex:1;min-width:200px}
+  .filters select:focus,.filters .search:focus{outline:none;border-color:var(--accent)}
+
+  .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+  .card{background:var(--bg-2);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:14px}
+  .card.new{border-color:rgba(212,255,58,.45)}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:100px;padding:5px 10px;background:var(--bg-3);border:1px solid var(--line)}
+  .badge.meta{background:#1f2a5c;border-color:#2f3fa0}
+  .badge.web{background:#103a2c;border-color:#17654a}
+  .badge.both{background:#3a1f4f;border-color:#6d3a92}
+  .date{font-size:12px;color:var(--muted);white-space:nowrap}
+  .card h2{font-size:22px;font-weight:700;letter-spacing:-.03em;line-height:1.15}
+  .card h3{font-size:14px;font-weight:500;color:#cfcec9;margin-top:2px}
+  dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+  dt{color:var(--muted)}
+  dd{word-break:break-word}
+  .proje{font-size:14px;color:#cfcec9;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;white-space:pre-wrap;word-break:break-word;max-height:180px;overflow:auto}
+  .card-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:auto;padding-top:6px;border-top:1px solid var(--line)}
+  .card-actions .btn-sm{padding:8px 14px}
+  .btn-wa{background:var(--wa);color:#fff}
+  .btn-wa:hover{background:#1fb457}
+  .card-actions select{background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:8px 12px;font-size:13px;margin-left:auto}
+  .del{background:none;border:0;color:var(--muted);font-size:13px;cursor:pointer;padding:8px 4px}
+  .del:hover{color:var(--danger)}
+  .empty{text-align:center;color:var(--muted);padding:80px 20px;border:1px dashed var(--line);border-radius:22px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:100px;font-size:14px;font-weight:600;z-index:10;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+
+  @media (max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:560px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat.hl{grid-column:1/-1}
+    .list{grid-template-columns:1fr}
+    .top-actions .btn-ghost .lbl{display:none}
+    .card-actions select{margin-left:0}
+  }
+</style>
+</head>
+<body>
+
+<!-- Giriş -->
+<section class="login" id="login">
+  <form class="login-box" id="loginForm">
+    <img src="/logo.png" alt="Alcera Digital">
+    <h1>Admin <span class="serif">paneli</span></h1>
+    <input class="input" type="password" id="pw" placeholder="Şifre" autocomplete="current-password" required autofocus>
+    <button class="btn" type="submit" id="loginBtn">Giriş Yap</button>
+    <p class="err" id="loginErr" hidden></p>
+  </form>
+</section>
+
+<!-- Panel -->
+<div id="panel" hidden>
+  <header class="top">
+    <div class="top-in">
+      <a href="/" title="Siteye dön"><img src="/logo.png" alt="Alcera Digital"></a>
+      <div class="top-actions">
+        <button class="btn btn-ghost btn-sm" id="refresh">↻ <span class="lbl">Yenile</span></button>
+        <button class="btn btn-ghost btn-sm" id="logout">Çıkış</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="head">
+      <h1>Başvu<span class="serif">rular</span></h1>
+      <p id="updated"></p>
+    </div>
+
+    <div class="stats">
+      <div class="stat hl"><b id="sNew">0</b><span>Yeni başvuru</span></div>
+      <div class="stat"><b id="sAll">0</b><span>Toplam</span></div>
+      <div class="stat"><b id="sMeta">0</b><span>Meta Reklam</span></div>
+      <div class="stat"><b id="sWeb">0</b><span>Web Sitesi</span></div>
+      <div class="stat"><b id="sBoth">0</b><span>İkisi birden</span></div>
+    </div>
+
+    <div class="filters">
+      <div class="seg" id="seg">
+        <button class="on" data-v="">Tümü</button>
+        <button data-v="Meta Reklam">Meta Reklam</button>
+        <button data-v="Web Sitesi">Web Sitesi</button>
+        <button data-v="Meta Reklam + Web Sitesi">İkisi birden</button>
+      </div>
+      <select id="fStatus" aria-label="Duruma göre filtrele">
+        <option value="">Tüm durumlar</option>
+        <option>Yeni</option><option>Arandı</option><option>Anlaşıldı</option><option>Olumsuz</option>
+      </select>
+      <input class="search" id="q" type="search" placeholder="İsim, işletme, sektör, telefon ara…">
+    </div>
+
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty" hidden>Henüz başvuru yok.</div>
+  </main>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const STATUSES = ['Yeni', 'Arandı', 'Anlaşıldı', 'Olumsuz'];
+  const BADGE = { 'Meta Reklam': 'meta', 'Web Sitesi': 'web', 'Meta Reklam + Web Sitesi': 'both' };
+  let pw = '';
+  let items = [];
+  const filter = { hizmet: '', durum: '', q: '' };
+
+  const store = {
+    get: () => { try { return sessionStorage.getItem('alcera_admin') || ''; } catch { return ''; } },
+    set: v => { try { v ? sessionStorage.setItem('alcera_admin', v) : sessionStorage.removeItem('alcera_admin'); } catch {} }
+  };
+
+  async function api(body) {
+    const res = await fetch('/api/admin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': pw },
+      body: JSON.stringify(body)
+    });
+    const out = await res.json().catch(() => ({}));
+    if (res.status === 401) { logout(); throw new Error('unauthorized'); }
+    if (!res.ok || !out.ok) throw new Error(out.error || 'Sunucu hatası');
+    return out;
+  }
+
+  let toastT;
+  function toast(msg) {
+    const t = $('toast');
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2200);
+  }
+
+  /* Giriş / çıkış */
+  $('loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    pw = $('pw').value;
+    $('loginBtn').disabled = true; $('loginErr').hidden = true;
+    try {
+      await api({ action: 'login' });
+      store.set(pw);
+      openPanel();
+    } catch (x) {
+      $('loginErr').textContent = x.message === 'unauthorized' ? 'Şifre hatalı.' : 'Bağlantı hatası, tekrar deneyin.';
+      $('loginErr').hidden = false;
+    } finally {
+      $('loginBtn').disabled = false;
+    }
+  });
+
+  function logout() {
+    pw = ''; store.set('');
+    $('panel').hidden = true; $('login').hidden = false;
+    $('pw').value = ''; $('pw').focus();
+  }
+  $('logout').addEventListener('click', logout);
+
+  function openPanel() {
+    $('login').hidden = true; $('panel').hidden = false;
+    load();
+  }
+
+  /* Veriler */
+  async function load() {
+    $('refresh').disabled = true;
+    try {
+      items = (await api({ action: 'list' })).items;
+      $('updated').textContent = 'Son güncelleme: ' + new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      render();
+    } catch (x) {
+      if (x.message !== 'unauthorized') toast('Başvurular yüklenemedi');
+    } finally {
+      $('refresh').disabled = false;
+    }
+  }
+  $('refresh').addEventListener('click', load);
+
+  const fmtDate = iso => new Date(iso).toLocaleString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const digits = s => String(s).replace(/\D/g, '');
+  const intl = s => { let d = digits(s); if (d.startsWith('0')) d = '90' + d.slice(1); else if (d.length === 10) d = '90' + d; return d; };
+  const el = (tag, props = {}, ...kids) => { const n = Object.assign(document.createElement(tag), props); n.append(...kids.filter(k => k != null)); return n; };
+
+  function render() {
+    const count = (k, v) => items.filter(i => i[k] === v).length;
+    $('sAll').textContent = items.length;
+    $('sNew').textContent = count('durum', 'Yeni');
+    $('sMeta').textContent = count('hizmet', 'Meta Reklam');
+    $('sWeb').textContent = count('hizmet', 'Web Sitesi');
+    $('sBoth').textContent = count('hizmet', 'Meta Reklam + Web Sitesi');
+
+    const q = filter.q.toLocaleLowerCase('tr');
+    const shown = items.filter(i =>
+      (!filter.hizmet || i.hizmet === filter.hizmet) &&
+      (!filter.durum || i.durum === filter.durum) &&
+      (!q || [i.adSoyad, i.isletme, i.sektor, i.telefon, i.saat, i.proje].join(' ').toLocaleLowerCase('tr').includes(q))
+    );
+
+    const list = $('list');
+    list.replaceChildren(...shown.map(card));
+    $('empty').hidden = shown.length > 0;
+    $('empty').textContent = items.length ? 'Bu filtreye uyan başvuru yok.' : 'Henüz başvuru yok.';
+  }
+
+  function card(i) {
+    const dl = el('dl');
+    const row = (k, v) => v && dl.append(el('dt', { textContent: k }), el('dd', { textContent: v }));
+    row('Telefon', i.telefon);
+    row('Görüşme saati', i.saat && i.saat.replace('-', ' – '));
+    row('Sektör', i.sektor);
+    row('Aylık bütçe', i.butce);
+
+    const status = el('select', { ariaLabel: 'Durum' }, ...STATUSES.map(s => el('option', { value: s, textContent: s, selected: s === i.durum })));
+    status.addEventListener('change', async () => {
+      const prev = i.durum;
+      i.durum = status.value; render();
+      try { await api({ action: 'status', key: i.key, status: i.durum }); toast('Durum güncellendi'); }
+      catch (x) { i.durum = prev; render(); if (x.message !== 'unauthorized') toast('Güncellenemedi'); }
+    });
+
+    const del = el('button', { className: 'del', textContent: 'Sil', type: 'button' });
+    del.addEventListener('click', async () => {
+      if (!confirm(`${i.adSoyad} (${i.isletme}) başvurusu silinsin mi?`)) return;
+      try { await api({ action: 'delete', key: i.key }); items = items.filter(x => x !== i); render(); toast('Başvuru silindi'); }
+      catch (x) { if (x.message !== 'unauthorized') toast('Silinemedi'); }
+    });
+
+    const waMsg = `Merhaba ${i.adSoyad}, Alcera Digital'den ulaşıyorum. "${i.hizmet}" başvurunuz için sizinle görüşmek istiyoruz.`;
+    return el('article', { className: 'card' + (i.durum === 'Yeni' ? ' new' : '') },
+      el('div', { className: 'card-top' },
+        el('span', { className: 'badge ' + (BADGE[i.hizmet] || ''), textContent: i.hizmet }),
+        el('span', { className: 'date', textContent: fmtDate(i.tarih) })
+      ),
+      el('div', {}, el('h2', { textContent: i.isletme }), el('h3', { textContent: i.adSoyad })),
+      dl,
+      i.proje ? el('div', { className: 'proje', textContent: i.proje }) : null,
+      el('div', { className: 'card-actions' },
+        el('a', { className: 'btn btn-ghost btn-sm', href: 'tel:+' + intl(i.telefon), textContent: 'Ara' }),
+        el('a', { className: 'btn btn-wa btn-sm', href: `https://wa.me/${intl(i.telefon)}?text=${encodeURIComponent(waMsg)}`, target: '_blank', rel: 'noopener', textContent: 'WhatsApp' }),
+        status,
+        del
+      )
+    );
+  }
+
+  /* Filtreler */
+  $('seg').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    $('seg').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    filter.hizmet = b.dataset.v; render();
+  });
+  $('fStatus').addEventListener('change', e => { filter.durum = e.target.value; render(); });
+  $('q').addEventListener('input', e => { filter.q = e.target.value.trim(); render(); });
+
+  /* Oturum açıksa doğrudan panele gir */
+  pw = store.get();
+  if (pw) {
+    $('login').hidden = true; $('panel').hidden = false;
+    load();
+  }
+})();
+</script>
+</body>
+</html>
