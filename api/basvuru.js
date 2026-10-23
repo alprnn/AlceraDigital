@@ -1,5 +1,5 @@
 import { put } from '@vercel/blob';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, createHash } from 'node:crypto';
 
 const SERVICES = ['Meta Reklam', 'Web Sitesi', 'Meta Reklam + Web Sitesi'];
 const BUDGETS = ['15-25 bin TL', '25-35 bin TL', '35-50+ bin TL'];
@@ -60,5 +60,71 @@ export async function POST(request) {
     contentType: 'application/json',
     addRandomSuffix: false
   });
+  await sendMetaLead(item, request);
   return reply(200, { ok: true });
+}
+
+/* ---------- Meta Conversions API: başvuru = "Lead" olayı ---------- */
+
+const sha256 = s => createHash('sha256').update(s).digest('hex');
+
+// Türkiye numarasını Meta'nın istediği biçime getir: 05xx... -> 905xx...
+function normalizePhone(s) {
+  let d = s.replace(/\D/g, '');
+  if (d.startsWith('00')) d = d.slice(2);
+  if (d.startsWith('0')) d = '90' + d.slice(1);
+  else if (d.length === 10) d = '90' + d;
+  return d;
+}
+
+function cookie(request, name) {
+  const m = (request.headers.get('cookie') || '').match(new RegExp('(?:^|;\\s*)' + name + '=([^;]+)'));
+  return m ? decodeURIComponent(m[1]) : undefined;
+}
+
+// META_PIXEL_ID ve META_ACCESS_TOKEN Vercel'de tanımlı değilse hiçbir şey yapmaz.
+// Meta'ya ulaşılamazsa başvuru yine kaydedilmiş olur; hata yalnızca loglanır.
+export async function sendMetaLead(item, request) {
+  const pixel = process.env.META_PIXEL_ID;
+  const token = process.env.META_ACCESS_TOKEN;
+  if (!pixel || !token) return;
+
+  const names = item.adSoyad.toLocaleLowerCase('tr').split(/\s+/).filter(Boolean);
+  const userData = {
+    ph: [sha256(normalizePhone(item.telefon))],
+    fn: names.length ? [sha256(names[0])] : undefined,
+    ln: names.length > 1 ? [sha256(names[names.length - 1])] : undefined,
+    country: [sha256('tr')],
+    external_id: [sha256(item.id)],
+    client_ip_address: (request.headers.get('x-forwarded-for') || '').split(',')[0].trim() || undefined,
+    client_user_agent: request.headers.get('user-agent') || undefined,
+    fbp: cookie(request, '_fbp'),
+    fbc: cookie(request, '_fbc')
+  };
+
+  const body = {
+    data: [{
+      event_name: 'Lead',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: item.id,
+      action_source: 'website',
+      event_source_url: request.headers.get('referer') || 'https://www.alceradigital.com/',
+      user_data: userData,
+      custom_data: { content_name: item.hizmet, content_category: item.sektor }
+    }],
+    ...(process.env.META_TEST_EVENT_CODE ? { test_event_code: process.env.META_TEST_EVENT_CODE } : {})
+  };
+
+  const version = process.env.META_API_VERSION || 'v23.0';
+  try {
+    const res = await fetch(`https://graph.facebook.com/${version}/${pixel}/events?access_token=${encodeURIComponent(token)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(5000)
+    });
+    if (!res.ok) console.error('Meta CAPI hatası', res.status, await res.text());
+  } catch (err) {
+    console.error('Meta CAPI ulaşılamadı', err.message);
+  }
 }
