@@ -405,6 +405,14 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2209221467140807&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "z27phhugqi");
+</script>
 </head>
 <body class="loading">
 
@@ -645,7 +653,7 @@ src="https://www.facebook.com/tr?id=2209221467140807&ev=PageView&noscript=1"
     </div>
     <p class="ap-hint" id="apHint">Başvuru formunu açmak için yukarıdan almak istediğiniz hizmeti seçin.</p>
 
-    <form class="ap-form" id="apForm" hidden>
+    <form class="ap-form" id="apForm" hidden data-clarity-mask="true">
       <div class="ap-title" id="apTitle"></div>
       <label class="fld"><span>Yetkili Ad Soyad</span><input name="adSoyad" required maxlength="120" autocomplete="name" placeholder="Adınız ve soyadınız"></label>
       <label class="fld"><span>İletişim Numarası</span><input name="telefon" type="tel" required maxlength="30" autocomplete="tel" inputmode="tel" placeholder="05xx xxx xx xx"></label>
