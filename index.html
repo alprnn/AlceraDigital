@@ -320,6 +320,9 @@
   .chip:hover span{border-color:rgba(255,255,255,.3)}
   .chip input:checked + span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
   .chip input:focus-visible + span{outline:2px solid var(--accent);outline-offset:3px}
+  .chip input:disabled + span{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+  .fld input[type=date]{color-scheme:dark;cursor:pointer;max-width:340px;min-height:54px}
+  .fld input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;filter:invert(83%) sepia(60%) saturate(800%) hue-rotate(20deg);opacity:.9}
   .ap-foot{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:6px}
   .ap-note{font-size:13px;color:var(--muted);max-width:440px}
   .ap-err{grid-column:1/-1;color:#ff8a7a;font-size:14px}
@@ -639,6 +642,7 @@
           <label class="chip"><input type="radio" name="butce" value="35-50+ bin TL"><span>35–50+ bin TL</span></label>
         </div>
       </fieldset>
+      <label class="fld full"><span>Görüşme Günü</span><input type="date" name="gun" id="apGun" required></label>
       <fieldset class="fld full">
         <legend>Görüşme İçin Uygun Saat Aralığı</legend>
         <div class="chips">
@@ -1030,6 +1034,28 @@
     }
   });
   form.telefon.addEventListener('input', () => form.telefon.setCustomValidity(''));
+
+  /* Görüşme günü: bugünden itibaren 60 gün; bugün seçilirse geçmiş saatler kapanır */
+  const gun = document.getElementById('apGun');
+  const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const setRange = () => {
+    const now = new Date();
+    gun.min = ymd(new Date(now.getFullYear(), now.getMonth(), now.getDate() + (now.getHours() >= 20 ? 1 : 0)));
+    gun.max = ymd(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 60));
+  };
+  const syncSlots = () => {
+    const today = gun.value === ymd(new Date());
+    const hour = new Date().getHours();
+    form.querySelectorAll('input[name="saat"]').forEach(s => {
+      s.disabled = today && parseInt(s.value, 10) <= hour;
+      if (s.disabled) s.checked = false;
+    });
+  };
+  setRange();
+  gun.addEventListener('focus', setRange);
+  gun.addEventListener('change', syncSlots);
+  gun.addEventListener('click', () => { try { gun.showPicker(); } catch {} });
+  form.addEventListener('reset', () => setTimeout(syncSlots));
 })();
 </script>
 </body>
