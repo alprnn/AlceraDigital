@@ -61,7 +61,7 @@ export async function POST(request) {
     addRandomSuffix: false
   });
   await sendMetaLead(item, request);
-  return reply(200, { ok: true });
+  return reply(200, { ok: true, id });
 }
 
 /* ---------- Meta Conversions API: başvuru = "Lead" olayı ---------- */
