@@ -2,7 +2,7 @@ import { put } from '@vercel/blob';
 import { randomUUID, createHash } from 'node:crypto';
 
 const SERVICES = ['Meta Reklam', 'Web Sitesi', 'Meta Reklam + Web Sitesi'];
-const BUDGETS = ['15-25 bin TL', '25-35 bin TL', '35-50+ bin TL'];
+const BUDGETS = ['5-15 bin TL', '15-25 bin TL', '25-35 bin TL', '35-50+ bin TL'];
 const SLOTS = ['10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00'];
 
 // Görüşme günü: YYYY-MM-DD, (İstanbul saatiyle) dünden önce ve 62 günden sonra olamaz
