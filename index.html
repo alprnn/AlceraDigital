@@ -287,32 +287,21 @@
 
   /* Application */
   .apply{border-top:1px solid var(--line)}
-  .ap-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
-  .ap-opt{position:relative;cursor:pointer;display:block}
-  .ap-opt input{position:absolute;opacity:0;pointer-events:none}
-  .ap-card{display:flex;flex-direction:column;gap:14px;height:100%;border:1px solid var(--line);border-radius:28px;padding:clamp(24px,3vw,36px);background:var(--bg-2);transition:border-color .4s,background .5s var(--ease),color .5s var(--ease)}
-  .ap-no{font-family:'Instrument Serif',serif;font-style:italic;font-size:34px;line-height:1;color:var(--accent);transition:color .5s}
-  .ap-card b{font-size:clamp(24px,2.4vw,34px);font-weight:700;letter-spacing:-.035em;line-height:1.02}
-  .ap-card small{color:var(--muted);font-size:14.5px;font-weight:300;line-height:1.5;transition:color .5s}
-  .ap-opt:hover .ap-card{border-color:rgba(255,255,255,.28)}
-  .ap-opt input:checked + .ap-card{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-  .ap-opt input:checked + .ap-card small,.ap-opt input:checked + .ap-card .ap-no{color:var(--accent-ink)}
-  .ap-opt input:focus-visible + .ap-card{outline:2px solid var(--accent);outline-offset:4px}
-  .ap-label{font-size:clamp(20px,2vw,26px);font-weight:700;letter-spacing:-.025em;margin-bottom:20px}
-  .ap-hint{color:var(--muted);font-size:14px;padding:8px 4px}
-  .ap-form{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px;border:1px solid var(--line);border-radius:32px;padding:clamp(24px,4vw,48px);background:var(--bg-2);animation:apIn .8s var(--ease)}
+  .ap-form{display:grid;grid-template-columns:1fr 1fr;gap:22px 20px;max-width:920px;border:1px solid var(--line);border-radius:28px;padding:clamp(22px,3.5vw,40px);background:var(--bg-2)}
   .ap-form[hidden],.ap-done[hidden],.fld[hidden]{display:none}
   @keyframes apIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-  .ap-title{grid-column:1/-1;font-size:clamp(22px,2.2vw,30px);font-weight:700;letter-spacing:-.03em}
-  .ap-title .serif{color:var(--accent)}
   .fld{display:flex;flex-direction:column;gap:10px;min-width:0;border:0}
   .fld.full{grid-column:1/-1}
   .fld > span,.fld legend{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0}
   .fld legend{margin-bottom:10px}
-  .fld input,.fld textarea{font:inherit;font-size:16px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:15px 18px;width:100%;transition:border-color .3s}
-  .fld textarea{min-height:150px;resize:vertical;line-height:1.5}
+  .fld input,.fld textarea,.fld select{font:inherit;font-size:16px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:15px 18px;width:100%;transition:border-color .3s}
+  .fld select{appearance:none;-webkit-appearance:none;cursor:pointer;min-height:54px;color-scheme:dark;padding-right:44px;
+    background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23d4ff3a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 18px center}
+  .fld select:invalid{color:#5f5e5a}
+  .fld select option{color:var(--text);background:var(--bg-2)}
+  .fld textarea{min-height:120px;resize:vertical;line-height:1.5}
   .fld input::placeholder,.fld textarea::placeholder{color:#5f5e5a}
-  .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent)}
+  .fld input:focus,.fld textarea:focus,.fld select:focus{outline:none;border-color:var(--accent)}
   .chips{display:flex;flex-wrap:wrap;gap:10px}
   .chip{position:relative;cursor:pointer}
   .chip input{position:absolute;opacity:0;width:1px;height:1px}
@@ -321,15 +310,14 @@
   .chip input:checked + span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
   .chip input:focus-visible + span{outline:2px solid var(--accent);outline-offset:3px}
   .chip input:disabled + span{opacity:.3;cursor:not-allowed;text-decoration:line-through}
-  .fld input[type=date]{color-scheme:dark;cursor:pointer;max-width:340px;min-height:54px}
+  .fld input[type=date]{color-scheme:dark;cursor:pointer;min-height:54px}
   .fld input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;filter:invert(83%) sepia(60%) saturate(800%) hue-rotate(20deg);opacity:.9}
-  .ap-foot{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:6px}
-  .ap-note{font-size:13px;color:var(--muted);max-width:440px}
+  .ap-foot{grid-column:1/-1;display:flex;align-items:center;justify-content:flex-start;gap:20px;flex-wrap:wrap;margin-top:6px}
   .ap-err{grid-column:1/-1;color:#ff8a7a;font-size:14px}
   .ap-err a{text-decoration:underline}
   .ap-form button[disabled]{opacity:.6;pointer-events:none}
   .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-  .ap-done{border:1px solid var(--accent);border-radius:32px;padding:clamp(32px,5vw,64px);background:linear-gradient(160deg,#1a1c10 0%,#121214 70%);animation:apIn .8s var(--ease)}
+  .ap-done{max-width:920px;border:1px solid var(--accent);border-radius:28px;padding:clamp(32px,5vw,64px);background:linear-gradient(160deg,#1a1c10 0%,#121214 70%);animation:apIn .8s var(--ease)}
   .ap-done h3{font-size:clamp(32px,4vw,56px);font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:16px}
   .ap-done h3 .serif{color:var(--accent)}
   .ap-done p{color:#bdbcb7;font-weight:300;max-width:560px;margin-bottom:28px}
@@ -358,7 +346,7 @@
     .svc-desc{grid-column:1/4}
     .mv{grid-template-columns:1fr}
     .mv-card{min-height:380px}
-    .ap-opts,.ap-form{grid-template-columns:1fr}
+    .ap-form{grid-template-columns:1fr}
     .contact{grid-template-columns:1fr}
     .c-item,.c-item + .c-item{padding:32px 0;border-left:0}
     .c-item + .c-item{border-top:1px solid var(--line)}
@@ -636,25 +624,15 @@ src="https://www.facebook.com/tr?id=2209221467140807&ev=PageView&noscript=1"
       <h2 class="h2 split">Hizmet almak için <span class="serif">başvurun.</span></h2>
     </div>
 
-    <h3 class="ap-label reveal" id="apLabel">Alacağınız hizmeti seçiniz</h3>
-    <div class="ap-opts" role="radiogroup" aria-labelledby="apLabel">
-      <label class="ap-opt reveal">
-        <input type="radio" name="hizmet" value="Meta Reklam" form="apForm" required>
-        <span class="ap-card"><span class="ap-no">01</span><b>Meta Reklam Hizmeti</b><small>Facebook & Instagram reklamlarınızı hedef kitlenize göre kurup yönetiyoruz.</small></span>
-      </label>
-      <label class="ap-opt reveal">
-        <input type="radio" name="hizmet" value="Web Sitesi" form="apForm">
-        <span class="ap-card"><span class="ap-no">02</span><b>Web Sitesi Hizmeti</b><small>Kurumsal site, e-ticaret veya landing page; markanıza özel tasarım.</small></span>
-      </label>
-      <label class="ap-opt reveal">
-        <input type="radio" name="hizmet" value="Meta Reklam + Web Sitesi" form="apForm">
-        <span class="ap-card"><span class="ap-no">03</span><b>Meta Reklam + Web Sitesi</b><small>İkisi bir arada: sitenizi kuralım, reklamlarla trafiği getirelim.</small></span>
-      </label>
-    </div>
-    <p class="ap-hint" id="apHint">Başvuru formunu açmak için yukarıdan almak istediğiniz hizmeti seçin.</p>
-
-    <form class="ap-form" id="apForm" hidden data-clarity-mask="true">
-      <div class="ap-title" id="apTitle"></div>
+    <form class="ap-form reveal" id="apForm" data-clarity-mask="true">
+      <fieldset class="fld full">
+        <legend>Alacağınız hizmeti seçiniz</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="hizmet" value="Meta Reklam" required checked><span>Meta Reklam</span></label>
+          <label class="chip"><input type="radio" name="hizmet" value="Web Sitesi"><span>Web Sitesi</span></label>
+          <label class="chip"><input type="radio" name="hizmet" value="Meta Reklam + Web Sitesi"><span>Meta Reklam + Web Sitesi</span></label>
+        </div>
+      </fieldset>
       <label class="fld"><span>Yetkili Ad Soyad</span><input name="adSoyad" required maxlength="120" autocomplete="name" placeholder="Adınız ve soyadınız"></label>
       <label class="fld"><span>İletişim Numarası</span><input name="telefon" type="tel" required maxlength="30" autocomplete="tel" inputmode="tel" placeholder="05xx xxx xx xx"></label>
       <label class="fld"><span>İşletme Adı</span><input name="isletme" required maxlength="160" autocomplete="organization" placeholder="İşletmenizin adı"></label>
@@ -667,28 +645,27 @@ src="https://www.facebook.com/tr?id=2209221467140807&ev=PageView&noscript=1"
           <label class="chip"><input type="radio" name="butce" value="35-50+ bin TL"><span>35–50+ bin TL</span></label>
         </div>
       </fieldset>
-      <label class="fld full"><span>Görüşme Günü</span><input type="date" name="gun" id="apGun" required></label>
-      <fieldset class="fld full">
-        <legend>Görüşme İçin Uygun Saat Aralığı</legend>
-        <div class="chips">
-          <label class="chip"><input type="radio" name="saat" value="10:00-11:00" required><span>10:00 – 11:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="11:00-12:00"><span>11:00 – 12:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="12:00-13:00"><span>12:00 – 13:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="13:00-14:00"><span>13:00 – 14:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="14:00-15:00"><span>14:00 – 15:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="15:00-16:00"><span>15:00 – 16:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="16:00-17:00"><span>16:00 – 17:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="17:00-18:00"><span>17:00 – 18:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="18:00-19:00"><span>18:00 – 19:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="19:00-20:00"><span>19:00 – 20:00</span></label>
-          <label class="chip"><input type="radio" name="saat" value="20:00-21:00"><span>20:00 – 21:00</span></label>
-        </div>
-      </fieldset>
-      <label class="fld full" data-only="web"><span>Projenizi Kısaca Anlatın</span><textarea name="proje" required maxlength="3000" placeholder="Nasıl bir web sitesi istiyorsunuz? Örnek aldığınız siteler, sayfalar, özellikler…"></textarea></label>
+      <label class="fld"><span>Görüşme Günü</span><input type="date" name="gun" id="apGun" required></label>
+      <label class="fld"><span>Görüşme Saati</span>
+        <select name="saat" id="apSaat" required>
+            <option value="">Saat seçin</option>
+            <option value="10:00-11:00">10:00 – 11:00</option>
+            <option value="11:00-12:00">11:00 – 12:00</option>
+            <option value="12:00-13:00">12:00 – 13:00</option>
+            <option value="13:00-14:00">13:00 – 14:00</option>
+            <option value="14:00-15:00">14:00 – 15:00</option>
+            <option value="15:00-16:00">15:00 – 16:00</option>
+            <option value="16:00-17:00">16:00 – 17:00</option>
+            <option value="17:00-18:00">17:00 – 18:00</option>
+            <option value="18:00-19:00">18:00 – 19:00</option>
+            <option value="19:00-20:00">19:00 – 20:00</option>
+            <option value="20:00-21:00">20:00 – 21:00</option>
+        </select>
+      </label>
+      <label class="fld full" data-only="web"><span>Projenizi Kısaca Anlatın</span><textarea name="proje" required maxlength="3000" placeholder="Nasıl bir web sitesi istiyorsunuz? Örnek aldığınız siteler, özellikler…"></textarea></label>
       <div class="hp" aria-hidden="true"><label>Web sitesi<input name="website" tabindex="-1" autocomplete="off"></label></div>
       <p class="ap-err" id="apErr" role="alert" hidden></p>
       <div class="ap-foot">
-        <p class="ap-note">Bilgileriniz yalnızca sizinle iletişime geçmek için kullanılır. En kısa sürede dönüş yapıyoruz.</p>
         <button class="btn btn-accent" type="submit" id="apBtn">Başvuruyu Gönder<svg class="arrow"><use href="#i-arrow"/></svg></button>
       </div>
     </form>
@@ -994,8 +971,6 @@ src="https://www.facebook.com/tr?id=2209221467140807&ev=PageView&noscript=1"
 /* Başvuru formu */
 (() => {
   const form = document.getElementById('apForm');
-  const hint = document.getElementById('apHint');
-  const title = document.getElementById('apTitle');
   const err = document.getElementById('apErr');
   const btn = document.getElementById('apBtn');
   const done = document.getElementById('apDone');
@@ -1009,17 +984,11 @@ src="https://www.facebook.com/tr?id=2209221467140807&ev=PageView&noscript=1"
       el.hidden = !on;
       el.querySelectorAll('input, textarea').forEach(i => i.disabled = !on);
     });
-    title.innerHTML = '';
-    title.append(value + ' ', Object.assign(document.createElement('span'), { className: 'serif', textContent: 'başvurusu' }));
-    hint.hidden = true;
     err.hidden = true;
-    if (form.hidden) {
-      form.hidden = false;
-      done.hidden = true;
-      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
   };
+  const current = () => (form.querySelector('input[name="hizmet"]:checked') || opts[0]).value;
   opts.forEach(o => o.addEventListener('change', () => select(o.value)));
+  select(current());
 
   const showErr = msg => {
     err.innerHTML = msg + ' Dilerseniz <a href="https://wa.me/905300119472" target="_blank" rel="noopener">WhatsApp\'tan</a> da yazabilirsiniz.';
@@ -1048,9 +1017,7 @@ src="https://www.facebook.com/tr?id=2209221467140807&ev=PageView&noscript=1"
       // Meta Pixel: sunucudaki Lead olayıyla aynı event_id, böylece iki kez sayılmaz
       if (window.fbq && out.id) fbq('track', 'Lead', { content_name: data.hizmet, content_category: data.sektor }, { eventID: out.id });
       form.reset();
-      opts.forEach(o => o.checked = false);
       form.hidden = true;
-      hint.hidden = true;
       done.hidden = false;
       done.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (x) {
@@ -1073,16 +1040,15 @@ src="https://www.facebook.com/tr?id=2209221467140807&ev=PageView&noscript=1"
   const syncSlots = () => {
     const today = gun.value === ymd(new Date());
     const hour = new Date().getHours();
-    form.querySelectorAll('input[name="saat"]').forEach(s => {
-      s.disabled = today && parseInt(s.value, 10) <= hour;
-      if (s.disabled) s.checked = false;
-    });
+    const saat = document.getElementById('apSaat');
+    [...saat.options].forEach(o => { if (o.value) o.disabled = today && parseInt(o.value, 10) <= hour; });
+    if (saat.selectedOptions[0] && saat.selectedOptions[0].disabled) saat.value = '';
   };
   setRange();
   gun.addEventListener('focus', setRange);
   gun.addEventListener('change', syncSlots);
   gun.addEventListener('click', () => { try { gun.showPicker(); } catch {} });
-  form.addEventListener('reset', () => setTimeout(syncSlots));
+  form.addEventListener('reset', () => setTimeout(() => { syncSlots(); select(current()); }));
 })();
 </script>
 </body>
